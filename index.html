@@ -1,0 +1,531 @@
+<!-- اضافة المزيد ل ملف الاساسيات و اضافة شيت جيميناي و تعديل الشكل قليلا -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Python Learning</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="menu.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 40px; background-color: #f9f9f9; }
+        h2 { color: #2563eb; margin-top: 30px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+        h3 { color: #0d9488; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: right; }
+        th { background-color: #f1f5f9; color: #1e3a8a; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        pre {background-color: #1e293b;color: #f8fafc;padding: 15px;border-radius: 8px;overflow-x: auto;font-family: Consolas, "Courier New", monospace;text-align: left;direction: ltr;unicode-bidi: embed;white-space: pre-wrap;line-height: 2.2;}
+        .comment { color: #64748b; font-style: italic; }
+        .keyword { color: #f43f5e; font-weight: bold; }
+        .important { background-color: #ffedd5; border-right: 5px solid #f97316; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .exercise { background-color: #f0fdf4; border-right: 5px solid #22c55e; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .error-box { background-color: #fef2f2; border-right: 5px solid #ef4444; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .nav-box { background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .nav-box ul { list-style: none; padding: 0; }
+        .nav-box li { margin: 8px 0; }
+        .nav-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+        .nav-box a:hover { text-decoration: underline; }
+        .code-btn {width: 100%;padding: 15px 20px;margin-top: 12px;background: linear-gradient(135deg, #c8ff00, #179520 , rgb(3, 79, 171));color: white;border: none;border-radius: 20px;font-size: 16px;font-weight: bold;cursor: pointer;transition: all 0.3s ease;}
+        .code-btn:hover {background: linear-gradient(135deg, rgb(3, 79, 171) ,#179520, #c8ff00 );transform: translateY(-2px);}
+        .code-btn:active {transform: translateY(0);}
+    </style>
+</head>
+<body>
+    <header>
+        <button id="menuBtn" >|||</button>
+        <h1>Python basics</h1>   
+        <div id="sidebar">
+            <p class="hhh">Python Learning</p>
+            <a href="oop.html" target="_self">OOP</a>
+            <a href="eda.html" target="_self">EDA</a>
+            <a href="knn.html" target="_self">KNN Algorithm</a>
+            <a href="d_t.html" target="_self">D_Tree Algorithm</a>
+            <a href="linear_regression.html" target="_self">linear_R Algorithm</a>
+            <a  href="logistic_regression.html" target="_self" ">logistic_R Algorithm</a>
+        </div>
+        <div ID="overlay"></div>
+    </header>
+    <p class="bbb"> print (" Hello everyone!... ") </p>
+    <br>
+    <div class="nav-box">
+        <h2>📑 المحتوى:- </h2>
+        <p style = "font-size: 22px; color :#06631a; font-weight : 700 "> اضغط على اسم الفصل للانتقال إليه مباشرة :</p>
+        <ul>
+            <li><a href="#ch1">الفصل 01: ما هي البرمجة ولغة Python؟</a></li>
+            <li><a href="#ch2">الفصل 02: التثبيت وأول برنامج </a></li>
+            <li><a href="#ch3">الفصل 03: المتغيرات وأنواع البيانات</a></li>
+            <li><a href="#ch4">الفصل 04: العمليات الحسابية والمنطقية</a></li>
+            <li><a href="#ch5">الفصل 05: الإدخال والإخراج (input & print)</a></li>
+            <li><a href="#ch6">الفصل 06: الجمل الشرطية (if, elif, else)</a></li>
+            <li><a href="#ch7">الفصل 07: الحلقات التكرارية (for & while)</a></li>
+            <li><a href="#ch8">الفصل 08: القوائم (Lists) وعمليات التقطيع</a></li>
+            <li><a href="#ch9">الفصل 09: القواميس (Dictionaries)</a></li>
+            <li><a href="#ch10">الفصل 10: الدوال (Functions)</a></li>
+            <li><a href="#ch11">الفصل 11: التعامل مع الملفات (قراءة وكتابة)</a></li>
+            <li><a href="#ch12">الفصل 12: الأخطاء والاستثناءات (try & except)</a></li>
+        </ul>
+    </div>
+
+    <h2 id="ch1">01. ما هي البرمجة ولغة Python؟</h2>
+    <h3>| ما هي البرمجة؟</h3>
+    <p>البرمجة ببساطة هي إعطاء تعليمات مرتبة للكمبيوتر ليقوم بمهمة معينة. تماماً كما تعطي وصفة طبخ لشخص ما، أنت تكتب خطوات مرتبة والكمبيوتر ينفذها بدقة.</p>
+    
+    <div style="background-color: #f8fafc; padding: 15px; border: 1px dashed #cbd5e1; text-align: center; margin: 15px 0;">
+        <strong>أنت (المبرمج)</strong> تفرز وتكتب الكود ◀ <strong>الكمبيوتر</strong> يفسر وينفذ الكود ◀ <strong>النتيجة</strong> تظهر للمستخدم (مثال: احسب 5 + 3 ◀ يطبع: 8)
+    </div>
+
+    <h3>| ما هي لغة Python ومميزاتها؟</h3>
+    <p>بايثون هي لغة برمجة عالية المستوى أنشأها المبرمج <em>Guido van Rossum</em> عام 1991. واكتسبت شهرة عالمية للأسباب التالية:</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>الميزة</th>
+                <th>التفسير والتفصيل</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>بسيطة وسهلة</strong></td>
+                <td>قواعدها تشبه اللغة الإنجليزية العادية، وهي سهلة القراءة والكتابة مقارنة باللغات الأخرى.</td>
+            </tr>
+            <tr>
+                <td><strong>متعددة الاستخدامات</strong></td>
+                <td>تستخدم في بناء المواقع الإلكترونية، تطبيقات الذكاء الاصطناعي، أتمتة المهام، وتحليل البيانات.</td>
+            </tr>
+            <tr>
+                <td><strong>مكتبات ضخمة مجانية</strong></td>
+                <td>تحتوي على آلاف الأدوات والأكواد الجاهزة التي توفر عليك كتابة البرامج من الصفر.</td>
+            </tr>
+            <tr>
+                <td><strong>الأكثر طلباً</strong></td>
+                <td>تعد حالياً من أعلى اللغات طلباً في سوق العمل العالمي ومجالات التكنولوجيا الحديثة.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="important">
+        💡 <strong>ملحوظة هامة:</strong> بايثون اليوم هي اللغة الأولى عالمياً في مجالات الذكاء الاصطناعي (AI) وتعليم الآلة (Machine Learning)، وبتعلمها تفتح لنفسك باباً مستقبلياً ضخماً جداً.
+    </div>
+
+    <div class="error-box">
+        ⚠️ <strong>أخطاء شائعة للمبتدئين:</strong>
+        <ul>
+            <li>الاعتقاد بأن البرمجة صعبة جداً من البداية؛ الحقيقة أنها مهارة تراكمية تحتاج فقط إلى الصبر والممارسة اليومية.</li>
+            <li>محاولة حفظ الأكواد دفعة واحدة بدلاً من فهم منطق وكيفية عمل الكود.</li>
+        </ul>
+    </div>
+
+    <div class="exercise">
+        🧠 <strong>تمرين :</strong> فكر في 3 مهمات يومية تقوم بها على الحاسوب ويمكن أتمامها ببرنامج بايثون (مثال: حساب فاتورة محل، ترتيب أسماء ملفات، أو إرسال رسالة تذكير تلقائية).
+    </div>
+
+    <h2 id="ch2">02. التثبيت وأول برنامج (print("Hello World"))</h2>
+    <p>لكي تبدأ بكتابة أكواد بايثون وتجهيز بيئة العمل، اتبع الخطوات التالية:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>الخطوة</th>
+                <th>التفاصيل التقنية</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1. التنزيل</strong></td>
+                <td>اذهب إلى الموقع الرسمي <a href="https://www.python.org/downloads" target="_blank">python.org/downloads</a> وحمل أحدث نسخة تناسب نظام تشغيلك.</td>
+            </tr>
+            <tr>
+                <td><strong>2. التثبيت</strong></td>
+                <td>شغل الملف المحمل على جهازك. <strong>(هام جداً لمستعملي ويندوز: تفعيل خيار Add Python to PATH قبل الضغط على Install وإلا لن يعمل بايثون في موجه الأوامر).</strong></td>
+            </tr>
+            <tr>
+                <td><strong>3. التحقق</strong></td>
+                <td>افتح Terminal أو موجه الأوامر (CMD) واكتب الأمر <code>python --version</code> للتأكد من ظهور رقم النسخة المثبتة.</td>
+            </tr>
+            <tr>
+                <td><strong>4. المحرر</strong></td>
+                <td>قم بتحميل وتثبيت برنامج <strong>VS Code</strong> وهو بيئة التطوير المجانية والأفضل للمبتدئين والمحترفين ايضا.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>| كود برنامجك الأول: Hello World</h3>
+    <pre><span class="comment"># هذا أول برنامج بايثون في حياتك - يقوم بطباعة نص على الشاشة</span>
+print("مرحباً بالعالم!")
+print("Hello, World!")</pre>
+
+    <h3>| طرق تشغيل أكواد بايثون الحالية:</h3>
+    <ol>
+        <li><strong>بشكل مباشر (Python Shell):</strong> افتح Terminal واكتب <code>python</code> لتكتب الأكواد وتنفذ سطراً بسطر.</li>
+        <li><strong>عبر ملف نصي (وهي الطريقة الأفضل):</strong> حفظ الكود في ملف ينتهي بـ <code>.py</code> وتشغيله عبر الأمر <code>python my_program.py</code>.</li>
+        <li><strong>Jupyter Notebook:</strong> خلايا تفاعلية ممتازة جداً لمجالات تحليل البيانات ولأغراض التعلم السريع.</li>
+    </ol>
+
+    <div class="error-box">
+        ⚠️ <strong dir="rtl">أخطاء شائعة عند البداية:</strong>
+        <ul>
+            <li>نسيان علامات الاقتباس <code>""</code> حول النصوص المراد طباعتها داخل دالة الطباعة <pre><code>❌👉 print(hossam)</code></pre>.</li>
+            <li>كتابة اسم الدالة بحرف كبير <code>Print()</code> بدلاً من الأحرف الصغيرة <code>print()</code>؛ بايثون لغة حساسة لحالة الأحرف .</li>
+        </ul>
+    </div>
+
+    <div class="exercise">
+        💻 <strong>تمرين عملي:</strong> اكتب برنامجاً يقوم بطباعة اسمك، عمرك، وهوايتك المفضلة بحيث يظهر كل منها على سطر منفصل تماماً.
+    </div>
+
+    <pre><span class="comment"># الحل النموذجي للتمرين</span>
+print("اسمي : حسام")
+print("عمري: 20 عاماً")
+print("هوايتي: البرمجة")
+<span class="comment"># اوامر الطباعة اللتي تكون اسفل بعضها يكون كل منها <br>في سطر مختلف تلقائيا . واذا اردت جعلهم في سطر واحد<br>كل ما عليك هو اضافة  <br>end="" في امر الطباعة الذي في الاعلى </span><br>print("hossam" , end=" ")<br>print("nasr")
+</pre>
+
+    <h2 id="ch3">03. المتغيرات وأنواع البيانات</h2>
+    <p><strong>المتغير (Variable):</strong> عبارة عن صندوق تخزين محجوز في ذاكرة الكمبيوتر العشوائية (RAM)، تعطيه اسماً معيناً وقيمة، لتتمكن من استدعاء هذه القيمة أو تعديلها لاحقاً في الكود.</p>
+
+    <pre><span class="comment"># إنشاء متغيرات برمجية مختلفة وتخزين القيم داخلها</span>
+age = 20                 <span class="comment"># متغير رقمي صحيح</span>
+name = "hossam"          <span class="comment"># متغير نصي</span>
+height = 1.7897          <span class="comment"># متغير رقمي عشري</span>
+is_student = True        <span class="comment"># متغير منطقي (بوليني)</span>
+
+print(name)              <span class="comment"># hossam : يطبع</span>
+print(age)               <span class="comment"># يطبع: 20</span></pre>
+
+    <h3>| أنواع البيانات الأساسية (Data Types):</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>النوع بالإنجليزية</th>
+                <th>الرمز في بايثون</th>
+                <th>الاستخدام</th>
+                <th>مثال تطبيقي</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Integer</td>
+                <td><code>int</code></td>
+                <td>الأعداد الصحيحة (موجبة أو سالبة) بدون كسور مثل الأعمار والكميات.</td>
+                <td><code>age = 20</code></td>
+            </tr>
+            <tr>
+                <td>Float</td>
+                <td><code>float</code></td>
+                <td>الأعداد العشرية والكسرية مثل الأسعار، المعدلات، والأطوال.</td>
+                <td><code>gpa = 3.75</code></td>
+            </tr>
+            <tr>
+                <td>String</td>
+                <td><code>str</code></td>
+                <td>النصوص والرسائل والكلمات، وتوضع دائماً بين علامتي اقتباس.</td>
+                <td><code>"name = "Ali</code></td>
+            </tr>
+            <tr>
+                <td>Boolean</td>
+                <td><code>bool</code></td>
+                <td>القيم المنطقية ولها خياران فقط إما صواب أو خطأ.</td>
+                <td><code>is_active = True</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>| التحويل بين أنواع البيانات (Type Casting):</h3>
+    <pre><span class="comment"># التحويل من نص يحتوي رقم إلى رقم حقيقي للقيام بالعمليات الحسابية</span>
+str_num = "42"
+num_int = int(str_num)     <span class="comment"># يتحول إلى عدد صحيح: 42</span>
+num_float = float(str_num) <span class="comment"># يتحول إلى عدد عشري: 42.0</span>
+back_to_str = str(100)     <span class="comment"># يتحول العدد 100 إلى نص: "100"</span>
+
+<span class="comment"># لمعرفة نوع أي متغير الحالي نستخدم الدالة type()</span>
+print(type(num_int))       <span class="comment"># المخرجات: &lt;class 'int'&gt;</span></pre>
+
+    <div class="error-box">
+        ⚠️ <strong>قواعد تسمية المتغيرات (أخطاء شائعة):</strong>
+        <ul>
+            <li>لا يجوز وضع مسافة في اسم المتغير (خطأ: <code>"my name = "Ali</code>)؛ الصواب استخدام الشرطة السفلية <code>"my_name = "Ali,</code> و يمكن وضع الشرطة السفلية في وسط او في اخر اسم المتغير.</li>
+            <li>لا يجوز بدء اسم المتغير برقم (خطأ: <code>"1name = "Ali</code>).</li>
+            <li>القيم المنطقية يجب أن تبدأ بحرف كبير دائماً: <code>True</code> أو <code>False</code> وليس بأحرف صغيرة.</li>
+        </ul>
+    </div>
+
+    <h2 id="ch4">04. العمليات الحسابية والمنطقية</h2>
+    <p>تتعامل لغة بايثون مع الأرقام والمعادلات الرياضية والمنطقية بكفاءة الآلة الحاسبة وأكثر، وإليك تفاصيل رموز هذه العمليات الحسابية:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>العملية الرياضية</th>
+                <th>الرمز في بايثون</th>
+                <th>  مثال </th>
+                <th>النتيجة المتوقعة</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>الجمع</td>
+                <td><code>+</code></td>
+                <td><code>5 + 3</code></td>
+                <td><code>8</code></td>
+            </tr>
+            <tr>
+                <td>الطرح</td>
+                <td><code>-</code></td>
+                <td><code>4 - 10</code></td>
+                <td><code>6</code></td>
+            </tr>
+            <tr>
+                <td>الضرب</td>
+                <td><code>*</code></td>
+                <td><code>3 * 4</code></td>
+                <td><code>12</code></td>
+            </tr>
+            <tr>
+                <td>القسمة العادية</td>
+                <td><code>/</code></td>
+                <td><code>3 / 10</code></td>
+                <td><code>3.3333333333333335</code> (تعطي float دائماً)</td>
+            </tr>
+            <tr>
+                <td>القسمة الصحيحة</td>
+                <td><code>//</code></td>
+                <td><code>3 // 10</code></td>
+                <td><code>3</code> (تتجاهل ما بعد الفاصلة تماماً)</td>
+            </tr>
+            <tr>
+                <td>باقي القسمة</td>
+                <td><code>%</code></td>
+                <td><code>3 % 10</code></td>
+                <td><code>1</code> (مفيدة جداً للتحقق من الأعداد الزوجية والفردية)</td>
+            </tr>
+            <tr>
+                <td>الأس / القوة</td>
+                <td><code>**</code></td>
+                <td><code>3 ** 2</code></td>
+                <td><code>8</code> (تعني 2 أس 3)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>| عمليات المقارنة والمنطق (Comparison & Logical Operators):</h3>
+    <pre><span class="comment"># عمليات المقارنة (تنتج دائماً True أو False)</span>
+print(5 == 5)   <span class="comment"># True (هل يساوي؟)</span>
+print(5 != 3)   <span class="comment"># True (هل لا يساوي؟)</span>
+print(10 > 20)  <span class="comment"># False (أكبر من)</span>
+
+<span class="comment"># العمليات المنطقية الربط والجمع</span>
+x = 10
+print(x > 5 and x < 20)  <span class="comment"># True (يجب تحقق الشرطين معاً)</span>
+print(x == 5 or x == 10) <span class="comment"># True (يكفي تحقق شرط واحد )</span>
+print(not(x > 5))        <span class="comment"># False (عكس النتيجة المنطقية الحالية)</span></pre>
+
+    <h2 id="ch5">05. إدخال وإخراج البيانات (input & print)</h2>
+    <p>التواصل مع المستخدم هو أساس أي برنامج تفاعلي، حيث يستقبل البرنامج مدخلات من المستخدم، ثم يعالجها وفقاً للأوامر التي تمت برمجتها، ويعرض النتائج المناسبة له : </p>
+
+    <h3>1. دالة الإدخال <code>input()</code></h3>
+    <p>تستقبل البيانات المدخلة من لوحة المفاتيح <strong>وتعيدها دائماً كنوع نصي (String)</strong>. إذا كنت تريد أرقاماً او نوعا آخر من البيانات ، يجب تحويلها يدوياً:</p>
+    <pre>name = input(" أدخل اسمك : ")
+print("أهلاً بك يا " + name)
+
+<span class="comment"># استقبال رقم واستخدامه مباشرة ك رقم. او نوع آخر من البيانات</span>
+age = int (input("كم عمرك الحالي؟ "))
+print("عمرك بعد عشر سنوات سيكون:", age + 10)
+
+<span class="comment"># وهكذا مع باقي انواع البيانات الاخرى</span></pre>
+
+    <h3>2. دالة الإخراج المتقدمة  f-string</h3>
+    <p>تعتبر <code>f-string</code> هي الطريقة الأسهل والأحدث لدمج المتغيرات داخل النصوص البرمجية دون الحاجة لاستخدام علامات الجمع المتكررة والمربكة :</p>
+    <pre>user_name = "محمود"
+user_age = 25
+
+<span class="comment"># لاستخدام دالة الطباعة المتقدمة . قم بوضع حرف إف قبل علامتي الاقتباس . واكتب النص مباشرة و عند استخدام متغير قم بوضعه داخل زوج من الاقواس المجعدة</span>
+مثال 👇
+print(f"مرحباً، اسمي {user_name} وعمري الحالي هو {user_age} سنة.")</pre>
+
+    <h2 id="ch6">06. الجمل الشرطية (if, elif, else)</h2>
+    <p>تسمح الجمل الشرطية للبرنامج باتخاذ قرارات مختلفة وتغيير مسار تنفيذ الأوامر بناءً على تحقق الشروط المحددة أو عدم تحققها :</p>
+
+    <pre>grade = int(input("أدخل درجتك في الاختبار (من 100): "))
+
+if grade >= 90 :
+    print("ممتاز! 🎉")
+elif grade >= 80 :
+    print("جيد جداً 👍")
+elif grade >= 60 :
+    print("ناجح ومقبول ✔️")
+else :
+    print("راسب، حظاً أوفر في المرة القادمة ")</pre>
+
+    <div class="important">
+        💡  <strong>قاعدة المسافات البادئة (Indentation):</strong>
+    في لغة بايثون، لا تُستخدم المسافات البادئة لأغراض جمالية أو لتحسين شكل الكود فقط، بل تُعد جزءاً أساسياً من بناء البرنامج. فهي تحدد للغة بداية ونهاية الكتل البرمجية (Code Blocks)، وتوضح أي الأوامر تنتمي إلى نفس المجموعة وأيها مستقل عنها. وتُستخدم المسافات البادئة في الجمل الشرطية والحلقات التكرارية والدوال والفئات (Classes) وغيرها من التراكيب البرمجية. لذلك فإن كتابة المسافات البادئة بشكل غير صحيح قد يؤدي إلى ظهور أخطاء تمنع البرنامج من العمل أو تتسبب في تنفيذ الأوامر بطريقة غير متوقعة.
+    </div>
+
+    <h2 id="ch7">07. الحلقات التكرارية (for & while)</h2>
+    <p>تستخدم لتكرار تنفيذ كود معين عدة مرات دون الحاجة لإعادة كتابته يدوياً، مما يوفر الوقت والجهد :</p>
+
+    <h3>1. حلقة <code>for</code> (التكرار المحدد):</h3>
+    <p>تستخدم عندما تكون على علم مسبق بعدد مرات التكرار المطلوبة، أو عند المرور على عناصر قائمة ما :</p>
+    <pre><span class="comment"># syntax : for (variable) in range (start, stop)<br>نقطة التوقف = النقطة المراد التوقف عندها +1<br>طباعة الأرقام من 1 إلى 5 باستخدام <br>range(1, 6)</span>
+for i in range(1, 6):
+    print(i)
+
+<span class="comment"># المرور على عناصر قائمة نصية</span>
+fruits = ["تفاح", "موز", "مانجو"]
+for fruit in fruits:
+    print(f"أنا أحب فاكهة: {fruit}")</pre>
+
+    <h3>2. حلقة <code>while</code> (التكرار المشروط):</h3>
+    <p>تستمر في التكرار طالما أن الشرط المكتوب بجانبها صحيح ولم يكسر :</p>
+    <pre><span class="comment"># syntax : while condition : 
+                الاوامر المراد تكرارها </span>
+    count = 5
+while count > 0 :
+    print(f"العد التنازلي: {count}")
+    count -= 1 
+    <span class="comment"># إنقاص قيمة المتغير في كل مرة لكي يتم كسر الشرط 
+    و حتى لا ندخل في حلقة تكرار لانهائية والجهاز يولع</span>
+print("انطلاق! 🚀")</pre>
+
+    <h3>| التحكم في الحلقات باستخدام <code>break</code> و <code>continue</code>:</h3>
+    <ul>
+        <li><code>break</code>: إيقاف الحلقة التكرارية تماماً والخروج منها فوراً قبل اكتمالها.</li>
+        <li><code>continue</code>: تخطي الدورة الحالية فقط والانتقال مباشرة إلى الدورة التالية في الحلقة.</li>
+    </ul>
+
+    <h2 id="ch8">08. القوائم (Lists) وعمليات التقطيع</h2>
+    <p><strong>القائمة (List):</strong> هي هيكل بيانات مرن ومُرتب يسمح بتخزين مجموعة من العناصر (نصوص، أرقام، إلخ) في متغير واحد، وتبدأ الفهرسة فيها من الترتيب صفر .اي ان اول عنصر يكون ترتيبه صفر :</p>
+
+    <pre><span class="comment">التكوين : اسم القائمة = [عناصر من نفس نوع البيانات مفصولة عن بعضها ب فاصلة]</span>
+
+my_list = ["خبز", "حليب", "بيض"]
+print(my_list[0])  <span class="comment"># يطبع العنصر الأول: خبز</span>
+print(my_list[-1]) <span class="comment"># الفهرس السالب يعيد من النهاية: بيض</span>
+
+<span class="comment"># العمليات الأساسية والتعديل على القوائم</span>
+my_list.append("جبن")        <span class="comment"># إضافة عنصر في نهاية القائمة</span>
+my_list.insert(1, "زبدة")    <span class="comment"># إضافة عنصر في موقع محدد (الفهرس 1)</span>
+my_list.remove("حليب")       <span class="comment"># حذف عنصر معين عن طريق الاسم</span>
+my_list.sort()               <span class="comment"># ترتيب القائمة أبجدياً أو تصاعدياً</span>
+print(len(my_list))          <span class="comment"># معرفة عدد عناصر القائمة</span></pre>
+
+    <h3>| ميزة تقطيع الأجزاء (Slicing):</h3>
+    <pre>nums = [0, 1, 2, 3, 4, 5]
+print(nums[1:4]) <span class="comment"># يستخرج من الفهرس 1 إلى قبل 4: [1, 2, 3]</span>
+print(nums[:3])  <span class="comment"># يستخرج من البداية إلى قبل 3: [0, 1, 2]</span>
+print(nums[::2]) <span class="comment"># تخطي خطوتين (طباعة الأعداد الزوجية): [0, 2, 4]</span></pre>
+
+    <h2 id="ch9">09. القواميس (Dictionaries)</h2>
+    <p><strong>القاموس (Dictionary):</strong> هيكل بيانات يخزن المعلومات على شكل ثنائيات تتكون من (مفتاح : قيمة) أو ما يعرف بـ <code>Key : Value</code>، ويشبه جدول بيانات صغير بحيث المفاتيح تكون فريدة دائماً.</p>
+
+    <pre><span class="comment">التكوين : اسم القاموس = {المفتاح1 : القيمة1 , المفتاح2 : القيمة2}</span>
+       <span class="comment">لا يشترط ان يكون المفتاح و القيمة من نفس نوع البيانات <br>             و لا يشترط ان تكون كل القيم من نوع بيانات واحد </span>
+    person = {
+    "name": "mohammed",      <span class="comment"># نص</span>
+    "age": 20,               <span class="comment"># عدد صحيح</span>
+    "height": 1.75,          <span class="comment"># عدد عشري</span>
+    "student": True          <span class="comment"># قيمة منطقية</span>
+}
+
+<span class="comment"># الوصول للقيم عبر المفتاح</span>
+print(person["name"])        <span class="comment"># المخرجات: محمد</span>
+print(person.get("email"))   <span class="comment"># محاولة الوصول الى القيمة بأمان في حالة ان المفتاح قد يكون غير موجود بدلا من التسبب في حوث خطأ  </span>
+
+<span class="comment"># التعديل والإضافة والحذف</span>
+person["age"] = 21           <span class="comment"># تعديل قيمة موجودة</span>
+person["email"] = "m@m.com"  <span class="comment"># إضافة مفتاح وقيمة جديدة</span>
+del person["height"]         <span class="comment"># حذف مفتاح بالكامل</span>
+
+<span class="comment"># المرور على القاموس باستخدام اللوب</span>
+for key, value in person.items() :
+    print(f"المفتاح: {key} -> القيمة: {value}")</pre>
+
+    <h2 id="ch10">10. الدوال (Functions)</h2>
+    <p><strong>الدالة (Function):</strong> هي عبارة عن كتلة برمجية منظمة من الأكواد يتم تجميعها وإعطائها اسماً معيناً للقيام بمهمة محددة، وتستخدم لإعادة استخدام الأكواد . منع التكرار . جعل البرنامج أكثر تنظيماً وسهولة في الصيانة . تقسيم المشكلة الكبيرة إلى أجزاء صغيرة.</p>
+
+    <pre><span class="comment"># (Parameter) تعريف دالة بسيطة تستقبل وسيطاً </span>
+def greet_user(name):
+    print(f"مرحباً بك يا {name}! أتمنى لك يوماً سعيداً ")
+
+<span class="comment"># استدعاء الدالة </span>
+greet_user("محمد")   <span class="comment"># => مرحباً بك يا محمد! اتمنى لك يوماً سعيداً  </span>
+greet_user("سارة")   <span class="comment"># => مرحباً بك يا سارة! اتمنى لك يوماً سعيداً  </span>
+
+<span class="comment"># return إنشاء دالة تقوم بحساب عملية وإرجاع النتيجة باستخدام </span>
+def add_numbers(a, b):
+    return a + b
+
+result = add_numbers(10, 5)
+print(f"مجموع الأعداد هو: {result}") <span class="comment"># => 15</span>
+
+def greet(name) :  <span class="comment"># name -> Parameter</span>
+    print(name)
+
+greet("Hossam")    <span class="comment"># "Hossam" -> Argument</span>
+
+<span class="comment"> # افتراضي Parameter استخدام</span>
+def greet(name="ahmed")   <span class="comment"># تمت اضافة قيمة افتراضية و هي احمد </span>
+   print( name )
+
+greet()        <span class="comment"># في حالة عدم إرسال قيمة سيطبع أحمد بدلاً من اعطاء خطأ</span>
+greet("Ali")   <span class="comment"># Ali <= و في حالة إرسال قيمة سيقوم بطباعتها </span>
+
+<span class="comment"># مثال على دالة تعطي مربع القيمة المُدخلة</span>
+def square(x) :
+   return x * x 
+
+print(square(5))   <span class="comment"># => 25</span>
+</pre>
+    <div class="important"><strong>💡 Parameter & Arguments</strong><br><strong> Parameter : </strong>متغير يُكتب في تعريف الدالة. <br> 
+    <strong> Argument : </strong> القيمة التي تُرسل عند استدعاء الدالة.</div>
+    <div class="error-box"> ⚠️ <strong>بعض الاخطاء الشائعة : </strong><br>نسيان وضع ( : ) بعد تعريف الدالة.<br>عدم ضبط المسافات البادئة للكود داخل الدالة.<br>ارسال عدد من القيم مختلف عن العدد المطلوب عند استدعاء الدالة مع عدم وجود قيم افتراضية.</div>
+    <h2 id="ch11">11. التعامل مع الملفات (قراءة وكتابة)</h2>
+    <p> تتيح لك لغة بايثون التعامل مع الملفات المخزنة على القرص الصلب، مما يسمح بحفظ البيانات بشكل دائم واسترجاعها لاحقاً عند الحاجة :  </p>
+
+    <pre><span class="comment"># الكتابة داخل ملف نصي جديد <br># ( تعني الكتابة وتستبدل المحتوى السابق للملف إن وجد w) </span>
+<span class="comment"># encoding="utf-8" إلزامي لدعم الحروف واللغة العربية بشكل سليم استخدام </span>
+with open("notes.txt", "w", encoding="utf-8") as f:
+    f.write("مرحباً بك في عالم بايثون !\n")
+    f.write(" notes.txt هذا السطر تم حفظه في الملف .\n")
+
+    <span class="comment"># القراءة من الملف النصي وعرض المحتويات على الشاشة (r تعني القراءة)</span>
+with open("notes.txt", "r", encoding="utf-8") as f:
+    content = f.read()
+    print(content)</pre>
+
+    <div class="important">
+        💡 <strong>نصيحة احترافية:</strong> استخدام جملة <code>()with open</code> هو الخيار الأفضل والآمن دائماً لأن بايثون تقوم بإغلاق الملف تلقائياً فور انتهاء عمليات القراءة و الكتابة، مما يحمي الملفات من التعطل أو الضياع المفاجئ.
+    </div>
+
+    <h2 id="ch12">12. الأخطاء والاستثناءات (try & except)</h2>
+    <p>يحمي نظام معالجة الأخطاء البرامج من الانهيار والإغلاق المفاجئ عند قيام المستخدم بإدخال بيانات خاطئة أو غير منطقية :</p>
+
+    <pre>try:
+    num1 = int(input("أدخل الرقم الأول: "))
+    num2 = int(input("أدخل الرقم الثاني: "))
+    result = num1 / num2
+    print(f"نتيجة القسمة الصحيحة هي: {result}")
+except ZeroDivisionError:
+    print("خطأ: لا يمكن القسمة على صفر رياضياً!")
+except NameError:
+    print("خظأ!: استخدام متغير لم يتم تعريفه")
+except ValueError:
+    print("خطأ: يرجى إدخال أرقام فقط وليس حروف!")
+except Exception as e :
+    print(f"وقع خطأ غير متوقع: {e}")
+finally:
+    print("هذه الجملة تُنفذ دائماً في نهاية البرنامج سواء نجح أو فشل.")
+</pre>
+<br>
+<script>
+    if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js")
+        .then(() => console.log("Service Worker Registered"))
+        .catch(err => console.log(err)); }
+    
+</script>
+<script src="app.js"></script>
+</body>
+</html>

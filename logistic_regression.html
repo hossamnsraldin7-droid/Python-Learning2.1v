@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Learning</title>
+<link rel="stylesheet" href="menu.css">
+<style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 40px; background-color: #f9f9f9; }
+        h2 { color: #2563eb; margin-top: 30px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+        h3 { color: #0d9488; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: right; }
+        th { background-color: #f1f5f9; color: #1e3a8a; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        pre{background:#1e293b;color:#f8fafc;padding:16px;border-radius:8px;overflow-x:auto;font-family: Consolas, "Courier New",monospace;text-align:left;direction:ltr;unicode-bidi:embed;white-space:pre;tab-size:4 ;line-height: 2.2}
+        code{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:embed}        .comment { color: #64748b; font-style: italic; }
+        .keyword { color: #f43f5e; font-weight: bold; }
+        .important { background-color: #ffedd5; border-right: 5px solid #f97316; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .exercise { background-color: #f0fdf4; border-right: 5px solid #22c55e; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .error-box { background-color: #fef2f2; border-right: 5px solid #ef4444; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .nav-box { background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .nav-box ul { list-style: none; padding: 0; }
+        .nav-box li { margin: 8px 0; }
+        .nav-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+        .nav-box a:hover { text-decoration: underline; }
+.card{background:#fff;padding:20px;margin:20px 0;border-radius:8px}
+.note{background:#eff6ff;border-right:5px solid #2563eb;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.warning{background:#ffedd5;border-right:5px solid #f97316;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.ltr{direction:ltr;text-align:left}
+</style>
+</head>
+<body><div class="container">
+<header>
+        <button id="menuBtn" >|||</button>
+        <h1>Logistic Regression | Machine Learning</h1>   
+        <div id="sidebar">
+            <p class="hhh">Python Learning</p>
+            <a href="index.html" target="_self">Python basics</a>
+            <a href="oop.html" target="_self">OOP</a>
+            <a href="eda.html" target="_self">EDA</a>
+            <a href="knn.html" target="_self">KNN Algorithm</a>
+            <a href="d_t.html" target="_self">D_Tree Algorithm</a>
+            <a href="linear_regression.html" target="_self" >linear_R Algorithm</a>
+        </div>
+        <div ID="overlay"></div>
+    </header>
+
+<div class="card">
+<h2>ما هي خوارزمية Logistic Regression؟</h2>
+<p>خوارزمية <b>Logistic Regression</b> أو <b>الانحدار اللوجستي</b> هي خوارزمية من خوارزميات <b>Supervised Machine Learning</b>، وتُستخدم غالبًا في مسائل <b>Classification</b> للتنبؤ بالفئة التي تنتمي إليها العينة.</p>
+<p>رغم وجود كلمة Regression في اسمها، فإن استخدامها الأساسي هو التصنيف، مثل تحديد ما إذا كان البريد الإلكتروني Spam أم Not Spam، أو هل سيغادر العميل الخدمة أم لا.</p>
+<div class="note"><b>مثال:</b> لدينا بيانات لعملاء، ونريد التنبؤ هل سيترك العميل الشركة أم سيستمر. تكون النتيجة فئة مثل <code>Yes / No</code>، ويمكن للنموذج أيضًا إعطاؤنا احتمال الانتماء إلى فئة معينة.</div>
+</div>
+
+<div class="card">
+<h2>الفكرة الأساسية: من القيم إلى الاحتمالات</h2>
+<p>يبدأ النموذج بحساب قيمة خطية من الخصائص، ثم يمررها إلى دالة تسمى <b>Sigmoid Function</b> لتحويل الناتج إلى احتمال بين 0 و1.</p>
+<pre><code>z = b + w1*x1 + w2*x2 + ... + wn*xn
+
+P(y = 1) = 1 / (1 + e^(-z))</code></pre>
+<ul>
+<li><b>x:</b> الخصائص أو Features التي ندخلها للنموذج.</li>
+<li><b>w:</b> الأوزان أو Coefficients التي يتعلمها النموذج.</li>
+<li><b>b:</b> قيمة Intercept.</li>
+<li><b>z:</b> الناتج الخطي قبل تطبيق Sigmoid.</li>
+<li><b>P(y = 1):</b> احتمال أن تنتمي العينة إلى الفئة 1.</li>
+</ul>
+<p>قيمة Sigmoid تكون دائمًا بين 0 و1؛ لذلك يمكن تفسيرها كاحتمال تقديري للفئة الإيجابية.</p>
+<div class="important"><b>مثال:</b> إذا أعطى النموذج احتمالًا يساوي <code>0.82</code> للفئة 1، فهذا يعني أن تقديره لاحتمال انتماء العينة لهذه الفئة هو 82%.</div>
+</div>
+
+<div class="card">
+<h2>كيف يتحول الاحتمال إلى Class؟</h2>
+<p>نحتاج إلى حد فاصل يسمى <b>Decision Threshold</b> لتحويل الاحتمال إلى تصنيف نهائي. القيمة الافتراضية الشائعة هي 0.5.</p>
+<table><tr><th>الاحتمال</th><th>التصنيف عند Threshold = 0.5</th></tr>
+<tr><td><code>0.82</code></td><td>Class 1</td></tr>
+<tr><td><code>0.67</code></td><td>Class 1</td></tr>
+<tr><td><code>0.31</code></td><td>Class 0</td></tr>
+<tr><td><code>0.08</code></td><td>Class 0</td></tr></table>
+<pre><code>if probability >= 0.5:
+    prediction = 1
+else:
+    prediction = 0</code></pre>
+<div class="note"><b>مهم:</b> يمكن تغيير Threshold حسب طبيعة المشكلة. في اكتشاف مرض مثلًا قد نفضل تقليل الحالات التي يفشل النموذج في اكتشافها، حتى لو زادت بعض الإنذارات الخاطئة.</div>
+</div>
+
+<div class="card">
+<h2>كيف يتعلم النموذج؟</h2>
+<p>يتعلم Logistic Regression الأوزان التي تجعل الاحتمالات المتوقعة أقرب إلى الفئات الحقيقية. ويستخدم عادةً دالة خسارة تسمى <b>Log Loss</b> أو <b>Binary Cross-Entropy</b> في التصنيف الثنائي.</p>
+<pre><code>Log Loss = -[y*log(p) + (1-y)*log(1-p)]</code></pre>
+<ul>
+<li><b>y:</b> الفئة الحقيقية، وتكون 0 أو 1 في التصنيف الثنائي.</li>
+<li><b>p:</b> الاحتمال الذي توقعه النموذج للفئة 1.</li>
+</ul>
+<p>يعاقب Log Loss النموذج بقوة عندما يعطي احتمالًا واثقًا لكنه خاطئ. وتُستخدم خوارزميات تحسين مثل <b>Gradient Descent</b> أو طرق تحسين أخرى للوصول إلى معاملات مناسبة.</p>
+<div class="note">يمكن أن يدعم Logistic Regression أكثر من فئتين أيضًا، باستخدام أساليب مثل <b>One-vs-Rest</b> أو <b>Multinomial</b> حسب إعداد النموذج.</div>
+</div>
+
+<div class="card">
+<h2>خطوات بناء النموذج</h2>
+<ol>
+<li><b>تحميل البيانات:</b> قراءة CSV وتحديد Features (X) وTarget (y).</li>
+<li><b>تجهيز البيانات:</b> معالجة القيم المفقودة وتحويل الأعمدة النصية إلى أرقام.</li>
+<li><b>تقسيم البيانات:</b> استخدام <code>train_test_split</code> مع <code>stratify=y</code> غالبًا للحفاظ على نسب الفئات.</li>
+<li><b>Scaling:</b> توحيد مقاييس الخصائص الرقمية، وهو مفيد غالبًا مع Logistic Regression.</li>
+<li><b>إنشاء النموذج:</b> استخدام <code>LogisticRegression</code>.</li>
+<li><b>التدريب والتوقع:</b> تنفيذ <code>fit</code> ثم <code>predict</code>.</li>
+<li><b>التقييم:</b> استخدام Accuracy وPrecision وRecall وF1-score وConfusion Matrix.</li>
+</ol>
+<div class="warning"><b>تنبيه:</b> يجب أن يكون Target فئات أو Labels وليس قيمة رقمية مستمرة مثل سعر المنزل. إذا كان الهدف توقع رقم مستمر، فهذه مسألة Regression وليست Classification.</div>
+</div>
+
+<div class="card">
+<h2>التطبيق العملي باستخدام ملف CSV </h2>
+<p>سنفترض أن ملف البيانات يحتوي على عمود مستهدف اسمه <code>target</code>، وأنه يمثل الفئة التي نريد توقعها. غيّر المسار واسم العمود حسب Dataset الخاصة بك.</p>
+<h3>1. استيراد المكتبات</h3>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score,<br>confusion_matrix, classification_report</code></pre>
+<p>استخدمنا Pandas لقراءة البيانات، وStandardScaler لتوحيد مقاييس الخصائص، وLogisticRegression لبناء النموذج، ومقاييس التقييم لفحص النتائج.</p>
+
+<h3>2. تحميل البيانات وتحديد X و y</h3>
+<pre>
+<code># قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# عرض أول خمس عينات وأسماء الأعمدة
+print(df.head())
+print(df.columns)
+
+# تحديد العمود الذي نريد توقعه
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+X = df.drop(columns=[target_column])
+y = df[target_column]</code></pre>
+<ul>
+<li><b>X:</b> الخصائص التي يعتمد عليها النموذج في تحديد الفئة.</li>
+<li><b>y:</b> الفئة الحقيقية التي نريد من النموذج توقعها.</li>
+</ul>
+<div class="note"><b>على Kaggle:</b> افتح لوحة <b>Input</b> داخل Notebook، واختر ملف CSV وانسخ مساره إلى <code>pd.read_csv()</code>. تأكد من اسم Target كما يظهر تمامًا في <code>df.columns</code>.</div>
+<div class="warning"><b>قبل التدريب:</b> عالج القيم المفقودة، وحوّل الأعمدة النصية أو الفئوية إلى أرقام باستخدام Encoding مناسب. يجب أن تكون قيم Target فئات واضحة. لا تستخدم عمود ID كخاصية دون سبب منطقي.</div>
+
+<h3>3. تقسيم البيانات — train_test_split</h3>
+<pre><code>X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)</code></pre>
+<ul>
+<li><b>X_train / y_train:</b> بيانات التدريب التي يتعلم منها النموذج.</li>
+<li><b>X_test / y_test:</b> بيانات الاختبار التي نستخدمها لتقييم النموذج.</li>
+<li><b>test_size=0.2:</b> تخصيص 20% للاختبار و80% للتدريب.</li>
+<li><b>random_state=42:</b> تثبيت التقسيم حتى تتكرر نفس النتيجة عند إعادة التشغيل.</li>
+<li><b>stratify=y:</b> يحافظ قدر الإمكان على نسب الفئات في مجموعتي التدريب والاختبار.</li>
+</ul>
+<div class="note">إذا كانت إحدى الفئات تحتوي على عينة واحدة فقط أو عدد قليل جدًا من العينات، فقد لا يعمل <code>stratify</code>؛ عندها راجع توزيع الفئات قبل التقسيم.</div>
+
+<h3>4. توحيد مقاييس الخصائص — StandardScaler</h3>
+<pre><code>scaler = StandardScaler()
+
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)</code></pre>
+<p>يقوم <code>fit_transform</code> بحساب المتوسط والانحراف المعياري من بيانات التدريب ثم تحويلها. أما بيانات الاختبار فنستخدم معها <code>transform</code> فقط حتى لا نستخدم معلومات الاختبار أثناء تجهيز التدريب.</p>
+<div class="important"><b>لماذا لم نستخدم fit_transform على X_test؟</b> لتجنب Data Leakage؛ يجب أن يتعلم تجهيز البيانات من Training Set فقط، ثم يطبق نفس التحويل على Test Set.</div>
+
+<h3>5. إنشاء نموذج Logistic Regression</h3>
+<pre><code>model = LogisticRegression(max_iter=1000)</code></pre>
+<p>أنشأنا النموذج. رفع <code>max_iter</code> إلى 1000 يمنح عملية التدريب عددًا أكبر من التكرارات للوصول إلى التقارب، وقد نحتاج إلى ذلك مع بعض مجموعات البيانات.</p>
+
+<h3>6. تدريب النموذج — fit</h3>
+<pre><code>model.fit(X_train, y_train)</code></pre>
+<p>يتعلم النموذج الأوزان التي تربط الخصائص بالفئات الموجودة في بيانات التدريب.</p>
+
+<h3>7. إجراء التوقع — predict</h3>
+<pre><code>y_pred = model.predict(X_test)</code></pre>
+<p>يعطي <code>predict</code> الفئة المتوقعة لكل عينة في بيانات الاختبار. وإذا أردنا الاحتمالات بدل الفئات:</p>
+<pre><code>y_prob = model.predict_proba(X_test)
+print(y_prob[:5])</code></pre>
+<p>كل صف في <code>y_prob</code> يحتوي على احتمالات الفئات المختلفة، ويكون ترتيب الأعمدة مطابقًا لترتيب الفئات في <code>model.classes_</code>.</p>
+
+<h3>8. تقييم النموذج</h3>
+<pre><code>print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred))</code></pre>
+<table><tr><th>المقياس</th><th>المعنى</th></tr>
+<tr><td><code>Accuracy</code></td><td>نسبة التوقعات الصحيحة من إجمالي التوقعات.</td></tr>
+<tr><td><code>Precision</code></td><td>من كل العينات التي توقع النموذج أنها Positive، كم عينة كانت Positive فعلًا؟</td></tr>
+<tr><td><code>Recall</code></td><td>من كل العينات Positive الحقيقية، كم عينة نجح النموذج في اكتشافها؟</td></tr>
+<tr><td><code>F1-score</code></td><td>متوسط توافقي يجمع Precision وRecall.</td></tr>
+<tr><td><code>Support</code></td><td>عدد العينات الحقيقية لكل فئة في بيانات الاختبار.</td></tr></table>
+<h3>فهم Confusion Matrix في التصنيف الثنائي</h3>
+<table><tr><th></th><th>Predicted Positive</th><th>Predicted Negative</th></tr>
+<tr><th>Actual Positive</th><td>True Positive (TP)</td><td>False Negative (FN)</td></tr>
+<tr><th>Actual Negative</th><td>False Positive (FP)</td><td>True Negative (TN)</td></tr></table>
+<ul>
+<li><b>TP:</b> النموذج توقع Positive وكانت العينة Positive فعلًا.</li>
+<li><b>TN:</b> النموذج توقع Negative وكانت العينة Negative فعلًا.</li>
+<li><b>FP:</b> النموذج توقع Positive لكنها Negative فعلًا.</li>
+<li><b>FN:</b> النموذج توقع Negative لكنها Positive فعلًا.</li>
+</ul>
+<div class="warning"><b>مهم:</b> إذا كانت البيانات غير متوازنة (Imbalanced Dataset)، فقد تكون Accuracy مرتفعة ومضللة. افحص Precision وRecall وF1-score، واختر المقياس الأهم حسب تكلفة الأخطاء في المشكلة.</div>
+</div>
+
+<div class="card">
+<h2>الكود كاملًا — نسخة مختصرة</h2>
+<p>هذا كود أساسي لتطبيق Logistic Regression على Dataset من Kaggle، بافتراض أن البيانات جاهزة وأن جميع الخصائص رقمية ولا تحتوي على قيم مفقودة.</p>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score,<br>classification_report, confusion_matrix
+
+# قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# تحديد العمود المستهدف
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+X = df.drop(columns=[target_column])
+y = df[target_column]
+
+# تقسيم البيانات مع الحفاظ على نسب الفئات
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# توحيد مقاييس الخصائص
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# إنشاء النموذج وتدريبه
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+# إجراء التوقعات
+y_pred = model.predict(X_test)
+
+# تقييم النموذج
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print(classification_report(y_test, y_pred))</code></pre>
+<div class="note"><b>لتشغيل الكود:</b> غيّر مسار CSV واسم <code>target</code> حسب Dataset. إذا كانت الخصائص تحتوي على نصوص أو قيم مفقودة، نفّذ Encoding وImputation قبل Scaling والتدريب.</div>
+</div>
+
+<div class="card">
+<h2>أهم الإعدادات والملاحظات</h2>
+<table><tr><th>الإعداد</th><th>وظيفته</th></tr>
+<tr><td><code>max_iter</code></td><td>أقصى عدد من تكرارات عملية التدريب.</td></tr>
+<tr><td><code>C</code></td><td>مقلوب قوة Regularization؛ القيمة الأصغر تعني تنظيمًا أقوى.</td></tr>
+<tr><td><code>solver</code></td><td>طريقة التحسين المستخدمة لتدريب النموذج.</td></tr>
+<tr><td><code>class_weight</code></td><td>يمكن استخدام <code>balanced</code> للتعامل مع عدم توازن الفئات.</td></tr></table>
+<ul>
+<li>Logistic Regression نموذج تصنيف، وليس الخيار المناسب لتوقع قيمة مستمرة.</li>
+<li>Scaling مفيد غالبًا، لكنه ليس شرطًا مطلقًا في كل حالة.</li>
+<li>إذا كان عدد الفئات أكبر من اثنتين، يمكن للنموذج تنفيذ Multiclass Classification.</li>
+<li>لا تعتمد على Accuracy وحدها، خصوصًا عند عدم توازن الفئات.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>ملخص سريع</h2>
+<table><tr><th>الأداة</th><th>وظيفتها</th></tr>
+<tr><td><code>train_test_split</code></td><td>تقسيم البيانات إلى تدريب واختبار.</td></tr>
+<tr><td><code>stratify=y</code></td><td>الحفاظ على نسب الفئات عند التقسيم.</td></tr>
+<tr><td><code>StandardScaler</code></td><td>توحيد مقاييس الخصائص الرقمية.</td></tr>
+<tr><td><code>LogisticRegression</code></td><td>إنشاء نموذج للتصنيف.</td></tr>
+<tr><td><code>fit()</code></td><td>تعلم معاملات النموذج من بيانات التدريب.</td></tr>
+<tr><td><code>predict()</code></td><td>توقع الفئة لكل عينة.</td></tr>
+<tr><td><code>predict_proba()</code></td><td>إرجاع احتمالات الانتماء إلى الفئات.</td></tr>
+<tr><td><code>Accuracy / Precision / Recall / F1</code></td><td>تقييم أداء التصنيف من زوايا مختلفة.</td></tr></table>
+<div class="note"><b>ترتيب العمل:</b><br><span class="ltr">Load Data → Split → Scale → Create Model → Fit → Predict → Evaluate</span></div>
+</div>
+
+<div class="card">
+<h2>تدريب عملي</h2>
+<ol>
+<li>استخدم Dataset لتوقع هل العميل سيترك الخدمة أم لا، واجعل عمود المغادرة هو Target.</li>
+<li>اطبع <code>df[target_column].value_counts()</code> لفهم توزيع الفئات.</li>
+<li>درّب النموذج مع <code>stratify=y</code>، ثم افحص Confusion Matrix.</li>
+<li>قارن Precision وRecall وF1-score، ولا تعتمد على Accuracy فقط.</li>
+<li>جرّب تغيير <code>C</code> وراقب تأثيره على نتائج الاختبار.</li>
+</ol>
+</div>
+</div><script src="app.js"></script>
+</body></html>

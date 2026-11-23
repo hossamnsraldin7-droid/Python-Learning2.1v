@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Learning</title>
+<link rel="stylesheet" href="menu.css">
+
+<style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 40px; background-color: #f9f9f9; }
+        h2 { color: #2563eb; margin-top: 30px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+        h3 { color: #0d9488; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: right; }
+        th { background-color: #f1f5f9; color: #1e3a8a; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        pre{background:#1e293b;color:#f8fafc;padding:16px;border-radius:8px;overflow-x:auto;font-family: Consolas, "Courier New",monospace;text-align:left;direction:ltr;unicode-bidi:embed;white-space:pre;tab-size:4 ; line-height: 2.2}
+        code{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:embed}        .comment { color: #64748b; font-style: italic; }
+        .keyword { color: #f43f5e; font-weight: bold; }
+        .important { background-color: #ffedd5; border-right: 5px solid #f97316; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .exercise { background-color: #f0fdf4; border-right: 5px solid #22c55e; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .error-box { background-color: #fef2f2; border-right: 5px solid #ef4444; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .nav-box { background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .nav-box ul { list-style: none; padding: 0; }
+        .nav-box li { margin: 8px 0; }
+        .nav-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+        .nav-box a:hover { text-decoration: underline; }
+.card{background:#fff;padding:20px;margin:20px 0;border-radius:8px}
+.note{background:#eff6ff;border-right:5px solid #2563eb;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.warning{background:#ffedd5;border-right:5px solid #f97316;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.ltr{direction:ltr;text-align:left}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+        <button id="menuBtn" >|||</button>
+        <h1>Linear Regression | Machine Learning</h1>   
+        <div id="sidebar">
+            <p class="hhh">Python Learning</p>
+            <a href="index.html" target="_self">Python basics</a>
+            <a href="oop.html" target="_self">OOP</a>
+            <a href="eda.html" target="_self">EDA</a>
+            <a href="knn.html" target="_self">KNN Algorithm</a>
+            <a href="d_t.html" target="_self">D_Tree Algorithm</a>
+            <a href="logistic_regression.html" target="_self">logistic_R Algorithm</a>
+        </div>
+        <div ID="overlay"></div>
+    </header>
+
+<div class="card">
+<h2>ما هي خوارزمية Linear Regression؟</h2>
+<p>خوارزمية <b>Linear Regression</b> أو <b>الانحدار الخطي</b> من خوارزميات <b>Supervised Machine Learning</b>، وتُستخدم في <b>Regression</b> للتنبؤ بقيمة رقمية مستمرة، مثل سعر منزل أو راتب أو درجة حرارة.</p>
+<p>تحاول الخوارزمية إيجاد أفضل علاقة خطية بين الخصائص <b>Features</b> والقيمة المستهدفة <b>Target</b>، بحيث تكون التوقعات قريبة قدر الإمكان من القيم الحقيقية.</p>
+<div class="note"><b>مثال:</b> إذا كان لدينا بيانات عن مساحة مجموعة من المنازل وأسعارها، يمكن تدريب النموذج على المساحة والسعر، ثم استخدامه لتقدير سعر منزل جديد بناءً على مساحته.</div>
+</div>
+
+<div class="card">
+<h2>الفكرة الرياضية للخوارزمية</h2>
+<p>في حالة وجود Feature واحدة، يحاول النموذج إيجاد خط مستقيم يمثل العلاقة بين X و y:</p>
+<pre><code>y = mx + b</code></pre>
+<ul>
+<li><b>y:</b> القيمة التي يتوقعها النموذج.</li>
+<li><b>x:</b> قيمة الخاصية التي نستخدمها في التوقع، مثل مساحة المنزل.</li>
+<li><b>m:</b> الميل <b>Slope</b>، ويحدد مقدار تغير y عندما تزيد x بمقدار وحدة واحدة.</li>
+<li><b>b:</b> الجزء المقطوع <b>Intercept</b>، وهو قيمة y عندما تكون x تساوي صفرًا.</li>
+</ul>
+<p>عندما يكون لدينا أكثر من Feature، تصبح المعادلة بالشكل التالي:</p>
+<pre><code>y = b + w1*x1 + w2*x2 + ... + wn*xn</code></pre>
+<p>كل وزن <code>w</code> يوضح تأثير Feature معينة في القيمة المتوقعة، مع ثبات باقي الخصائص.</p>
+<div class="note"><b>مهم:</b> النموذج لا يحفظ أسعار المنازل كما هي، بل يتعلم الأوزان والمعاملات التي تصف العلاقة في بيانات التدريب، ثم يستخدمها للتوقع على بيانات لم يرها من قبل.</div>
+</div>
+
+<div class="card">
+<h2>كيف يختار النموذج أفضل خط؟</h2>
+<p>يحسب النموذج الفرق بين القيمة الحقيقية والقيمة التي توقعها. يسمى هذا الفرق <b>Error</b> أو <b>Residual</b>.</p>
+<p>في الانحدار الخطي التقليدي، يتم اختيار المعاملات بحيث تقلل مجموع مربعات الأخطاء، وهي فكرة <b>Ordinary Least Squares (OLS)</b>.</p>
+<pre><code>Error = Actual Value - Predicted Value
+
+MSE = (1 / n) * sum((y_actual - y_predicted) ** 2)</code></pre>
+<ul>
+<li><b>MSE — Mean Squared Error:</b> متوسط مربعات الأخطاء. كلما قلت قيمته كان النموذج أقرب للقيم الحقيقية.</li>
+<li><b>Residual:</b> الفرق بين القيمة الفعلية والمتوقعة لكل عينة.</li>
+</ul>
+<div class="important"><b>لماذا نربع الخطأ؟</b> حتى لا تلغي الأخطاء الموجبة والسالبة بعضها، ولإعطاء الأخطاء الكبيرة تأثيرًا أكبر في عملية الحساب.</div>
+</div>
+
+<div class="card">
+<h2>خطوات بناء النموذج</h2>
+<ol>
+<li><b>تحميل البيانات:</b> نقرأ ملف CSV ونحدد Features (X) وTarget (y).</li>
+<li><b>تقسيم البيانات:</b> نستخدم <code>train_test_split</code> لفصل بيانات التدريب عن الاختبار.</li>
+<li><b>إنشاء النموذج:</b> نستخدم <code>LinearRegression</code>.</li>
+<li><b>التدريب:</b> نستخدم <code>fit</code> ليتعلم النموذج معاملات العلاقة الخطية.</li>
+<li><b>التوقع:</b> نستخدم <code>predict</code> لإنتاج قيم رقمية للبيانات الجديدة.</li>
+<li><b>التقييم:</b> نقارن القيم المتوقعة بالقيم الحقيقية باستخدام MAE وMSE وRMSE وR².</li>
+</ol>
+<div class="note"><b>ملاحظة:</b> Linear Regression لا تحتاج عادةً إلى <code>StandardScaler</code> لكي تعمل؛ لأن النموذج لا يعتمد على حساب المسافات مثل KNN. توحيد المقاييس قد يكون مفيدًا في بعض النماذج أو عند مقارنة معاملات الخصائص، لكنه ليس خطوة إلزامية هنا.</div>
+</div>
+
+<div class="card">
+<h2>التطبيق العملي باستخدام ملف CSV </h2>
+<p>سنستخدم Dataset بصيغة CSV. المثال يفترض أن العمود الذي نريد توقعه اسمه <code>target</code>، وأنه يحتوي على قيم رقمية. غيّر الاسم والمسار حسب ملفك.</p>
+<h3>1. استيراد المكتبات</h3>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error,<br>mean_squared_error, r2_score</code></pre>
+<p>استخدمنا Pandas لقراءة البيانات، و<code>train_test_split</code> لتقسيمها، و<code>LinearRegression</code> لبناء النموذج، ثم استوردنا مقاييس تقييم الانحدار.</p>
+
+<h3>2. تحميل البيانات وتحديد X و y</h3>
+<pre>
+<code># قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# عرض أول خمس عينات وأسماء الأعمدة
+print(df.head())
+print(df.columns)
+
+# تحديد العمود الذي نريد توقعه
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+# و تحويلهما ل قيم عددية كسرية
+X = df.drop(columns=[target_column]).astype(float)
+y = df[target_column].astype(float)</code></pre>
+<ul>
+<li><b>X:</b> الخصائص التي سيعتمد عليها النموذج في التوقع، مثل المساحة وعدد الغرف.</li>
+<li><b>y:</b> القيمة الرقمية التي نريد توقعها، مثل سعر المنزل.</li>
+</ul>
+<div class="note"><b>على Kaggle:</b> افتح لوحة <b>Input</b> داخل Notebook، واختر ملف CSV وانسخ مساره إلى <code>pd.read_csv()</code>. تأكد من كتابة اسم Target كما يظهر تمامًا في <code>df.columns</code>.</div>
+<div class="warning"><b>قبل التدريب:</b> يجب أن يكون Target رقميًا. ويجب معالجة القيم المفقودة، كما يجب تحويل الأعمدة النصية أو الفئوية في X إلى أرقام باستخدام Encoding مناسب. لا تضع عمودًا يمثل معرّفًا فقط (ID) ضمن الخصائص دون سبب منطقي.</div>
+
+<h3>3. تقسيم البيانات — train_test_split</h3>
+<pre><code>X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)</code></pre>
+<ul>
+<li><b>X_train:</b> خصائص بيانات التدريب.</li>
+<li><b>X_test:</b> خصائص بيانات الاختبار.</li>
+<li><b>y_train:</b> القيم الحقيقية التي سيتعلم منها النموذج.</li>
+<li><b>y_test:</b> القيم الحقيقية التي سنقارن بها التوقعات.</li>
+<li><b>test_size=0.2:</b> تخصيص 20% للاختبار و80% للتدريب.</li>
+<li><b>random_state=42:</b> تثبيت التقسيم للحصول على نفس النتائج عند إعادة التشغيل.</li>
+</ul>
+<div class="note">لاحظ أننا لم نستخدم <code>stratify=y</code> هنا؛ فهي تُستخدم غالبًا للحفاظ على نسب الفئات في مسائل Classification، بينما Target في Regression يكون قيمة رقمية مستمرة.</div>
+
+<h3>4. إنشاء نموذج Linear Regression</h3>
+<pre><code>model = LinearRegression()</code></pre>
+<p>أنشأنا كائنًا من <code>LinearRegression</code>. هذا الكائن سيحسب المعاملات المناسبة اعتمادًا على بيانات التدريب عند تنفيذ <code>fit</code>.</p>
+
+<h3>5. تدريب النموذج — fit</h3>
+<pre><code>model.fit(X_train, y_train)</code></pre>
+<p>يتعلم النموذج العلاقة بين الخصائص والقيمة المستهدفة. بعد التدريب يمكننا الاطلاع على المعاملات:</p>
+<pre><code>print("Coefficients:", model.coef_)
+print("Intercept:", model.intercept_)</code></pre>
+<ul>
+<li><b>coef_:</b> معاملات الخصائص أو الأوزان التي تعلمها النموذج.</li>
+<li><b>intercept_:</b> قيمة الجزء المقطوع من المعادلة.</li>
+</ul>
+
+<h3>6. إجراء التوقع — predict</h3>
+<pre><code>y_pred = model.predict(X_test)</code></pre>
+<p>نرسل خصائص بيانات الاختبار إلى النموذج، فيحسب قيمة رقمية متوقعة لكل عينة، ونخزن النتائج في <code>y_pred</code>.</p>
+
+<h3>7. تقييم النموذج</h3>
+<pre><code>print("MAE:", mean_absolute_error(y_test, y_pred))
+print("MSE:", mean_squared_error(y_test, y_pred))
+print("RMSE:", mean_squared_error(y_test, y_pred) ** 0.5)
+print("R2 Score:", r2_score(y_test, y_pred))</code></pre>
+<table><tr><th>المقياس</th><th>المعنى</th><th>الأفضل</th></tr>
+<tr><td><code>MAE</code></td><td>متوسط القيمة المطلقة للفروق بين القيم الحقيقية والمتوقعة، وبنفس وحدة Target.</td><td>الأقل</td></tr>
+<tr><td><code>MSE</code></td><td>متوسط مربعات الأخطاء، ويعاقب الأخطاء الكبيرة بصورة أكبر.</td><td>الأقل</td></tr>
+<tr><td><code>RMSE</code></td><td>الجذر التربيعي لـ MSE، ويعيد الخطأ إلى نفس وحدة Target.</td><td>الأقل</td></tr>
+<tr><td><code>R² Score</code></td><td>يقيس مقدار التباين في Target الذي يفسره النموذج مقارنة بخط أساس يتوقع المتوسط.</td><td>الأعلى غالبًا</td></tr></table>
+<div class="warning"><b>تنبيه:</b> قيمة R² قد تكون سالبة إذا كان النموذج أسوأ من استخدام متوسط قيم التدريب كتوقع. ولا تعني قيمة R² المرتفعة وحدها أن النموذج مناسب؛ افحص الأخطاء وطبيعة البيانات أيضًا.</div>
+</div>
+
+<div class="card">
+<h2>الكود كاملًا </h2>
+<p>هذا هو الكود الأساسي لتطبيق Linear Regression على Dataset من Kaggle، بعد التأكد من أن البيانات نظيفة وأن الخصائص قابلة للمعالجة رقميًا.</p>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+# قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# تحديد العمود المستهدف
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+# و تحويلهما ل قيم عددية كسرية
+X = df.drop(columns=[target_column]).astype(float)
+y = df[target_column].astype(float)
+
+# تقسيم البيانات إلى تدريب واختبار
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# إنشاء نموذج الانحدار الخطي
+model = LinearRegression()
+
+# تدريب النموذج
+model.fit(X_train, y_train)
+
+# إجراء التوقعات
+y_pred = model.predict(X_test)
+
+# تقييم النموذج
+print("MAE:", mean_absolute_error(y_test, y_pred))
+print("RMSE:", mean_squared_error(y_test, y_pred) ** 0.5)
+print("R2 Score:", r2_score(y_test, y_pred))</code></pre>
+<div class="note"><b>لتشغيل الكود:</b> غيّر مسار CSV واسم <code>target</code> حسب Dataset الخاصة بك. إذا كانت البيانات تحتوي على أعمدة نصية أو قيم مفقودة، عالجها قبل التدريب.</div>
+</div>
+
+<div class="card">
+<h2>أهم الافتراضات والملاحظات</h2>
+<ul>
+<li><b>Linearity:</b> يفترض النموذج أن العلاقة بين الخصائص وTarget يمكن تمثيلها بشكل خطي تقريبًا.</li>
+<li><b>Outliers:</b> القيم الشاذة قد تؤثر بقوة على خط الانحدار؛ لذلك افحصها قبل التدريب.</li>
+<li><b>Multicollinearity:</b> الارتباط العالي بين Features قد يجعل معاملات النموذج غير مستقرة وصعبة التفسير.</li>
+<li><b>Extrapolation:</b> التوقع خارج نطاق القيم التي تدرب عليها النموذج قد يكون غير موثوق.</li>
+</ul>
+<div class="note">Linear Regression نموذج بسيط وسهل التفسير، لكنه قد لا يلتقط العلاقات المنحنية أو المعقدة جيدًا. في هذه الحالة يمكن تجربة نماذج أخرى أو إنشاء Features مناسبة.</div>
+</div>
+
+<div class="card">
+<h2>هل هناك شيء يمكن الاستغناء عنه؟</h2>
+<ul>
+<li><b>StandardScaler:</b> ليس مطلوبًا عادةً مع <code>LinearRegression</code> العادي، لذلك لم نضفه للكود.</li>
+<li><b>طباعة coef_ و intercept_:</b> اختيارية؛ استخدمها عندما تريد فهم المعادلة التي تعلمها النموذج.</li>
+<li><b>MSE:</b> يمكن الاستغناء عن طباعته إذا كنت تعرض RMSE؛ لأن RMSE هو الجذر التربيعي له، لكن MSE مفيد للتعلم والمقارنة.</li>
+<li><b>MAE وRMSE:</b> ليس من الضروري عرض كل المقاييس في كل مشروع، لكن من المفيد استخدام أكثر من مقياس لفهم نوع الخطأ.</li>
+<li><b>random_state:</b> يمكن حذفه، لكن تركه يجعل تقسيم البيانات قابلًا للتكرار.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>ملخص سريع</h2>
+<table><tr><th>الأداة</th><th>وظيفتها</th></tr>
+<tr><td><code>train_test_split</code></td><td>تقسيم البيانات إلى تدريب واختبار.</td></tr>
+<tr><td><code>LinearRegression</code></td><td>إنشاء نموذج انحدار خطي للتنبؤ بقيم رقمية.</td></tr>
+<tr><td><code>fit()</code></td><td>تعلم معاملات العلاقة الخطية من بيانات التدريب.</td></tr>
+<tr><td><code>predict()</code></td><td>التنبؤ بقيم رقمية لبيانات جديدة.</td></tr>
+<tr><td><code>MAE / RMSE</code></td><td>قياس متوسط حجم أخطاء التوقع.</td></tr>
+<tr><td><code>R² Score</code></td><td>قياس مدى تفسير النموذج للتباين في القيم المستهدفة.</td></tr></table>
+<div class="note"><b>ترتيب العمل:</b><br><span class="ltr">Load Data → Split → Create Model → Fit → Predict → Evaluate</span></div>
+</div>
+
+<div class="card">
+<h2>تدريب عملي</h2>
+<ol>
+<li>استخدم Dataset لأسعار المنازل، واجعل السعر هو Target.</li>
+<li>درّب النموذج باستخدام Feature واحدة مثل المساحة، ثم جرّب إضافة عدد الغرف.</li>
+<li>قارن MAE وRMSE وR² قبل إضافة الخصائص وبعدها.</li>
+<li>افحص العلاقة بين Feature وTarget، ولاحظ هل تبدو خطية أم لا.</li>
+<li>قارن القيم الحقيقية <code>y_test</code> بالقيم المتوقعة <code>y_pred</code> لعدة عينات.</li>
+</ol>
+</div>
+
+<footer>Machine Learning Notes · Linear Regression</footer>
+</div><script src="app.js"></script>
+</body></html>

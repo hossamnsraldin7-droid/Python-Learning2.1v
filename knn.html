@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Learning</title>
+<link rel="stylesheet" href="menu.css">
+
+<style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 40px; background-color: #f9f9f9; }
+        h2 { color: #2563eb; margin-top: 30px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+        h3 { color: #0d9488; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: right; }
+        th { background-color: #f1f5f9; color: #1e3a8a; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        pre{background:#1e293b;color:#f8fafc;padding:16px;border-radius:8px;overflow-x:auto;font-family: Consolas, "Courier New",monospace;text-align:left;direction:ltr;unicode-bidi:embed;white-space:pre;tab-size:4; line-height: 2.2}
+        code{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:embed}
+        .comment { color: #64748b; font-style: italic; }
+        .keyword { color: #f43f5e; font-weight: bold; }
+        .important { background-color: #ffedd5; border-right: 5px solid #f97316; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .exercise { background-color: #f0fdf4; border-right: 5px solid #22c55e; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .error-box { background-color: #fef2f2; border-right: 5px solid #ef4444; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .nav-box { background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .nav-box ul { list-style: none; padding: 0; }
+        .nav-box li { margin: 8px 0; }
+        .nav-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+        .nav-box a:hover { text-decoration: underline; }
+.card{background:#fff;padding:20px;margin:20px 0;border-radius:8px}
+.note{background:#eff6ff;border-right:5px solid #2563eb;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.warning{background:#ffedd5;border-right:5px solid #f97316;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.ltr{direction:ltr;text-align:left}
+</style>
+</head>
+<body><div class="container">
+<header>
+        <button id="menuBtn" >|||</button>
+        <h1>KNN | Machine Learning</h1>   
+        <div id="sidebar">
+            <p class="hhh">Python Learning</p>
+            <a href="index.html" target="_self">Python basics</a>
+            <a href="oop.html" target="_self">OOP</a>
+            <a href="eda.html" target="_self">EDA</a>
+            <a href="d_t.html" target="_self">D_Tree Algorithm</a>
+            <a href="linear_regression.html" target="_self">linear_R Algorithm</a>
+            <a href="logistic_regression.html" target="_self">logistic_R Algorithm</a>
+        </div>
+        <div ID="overlay"></div>
+    </header>
+
+<div class="card">
+<h2>ما هي خوارزمية KNN؟</h2>
+<p>خوارزمية <b>K-Nearest Neighbors</b> من خوارزميات <b>Supervised Machine Learning</b>، وتُستخدم في التصنيف <b>Classification</b> وأحيانًا في التنبؤ بالقيم <b>Regression</b>.</p>
+<p>فكرتها: عندما تصل عينة جديدة لا نعرف فئتها، نحسب المسافة بينها وبين عينات التدريب، ثم نختار أقرب K عينات. الفئة الأكثر تكرارًا بين هؤلاء الجيران هي الفئة المتوقعة للعينة الجديدة.</p>
+<div class="note"><b>مثال:</b> إذا كانت K = 5، وكانت أقرب خمس عينات تتضمن ثلاث عينات من الفئة A وعينتين من الفئة B، فسيصنف النموذج العينة الجديدة على أنها A.</div>
+</div>
+
+<div class="card">
+<h2>خطوات بناء النموذج</h2>
+<ol>
+<li><b>تجهيز البيانات:</b> نحدد Features (X)، وهي الأعمدة التي سيعتمد عليها النموذج، وTarget (y)، وهو العمود الذي نريد توقعه.</li>
+<li><b>تقسيم البيانات:</b> نستخدم <code>train_test_split</code> لفصل بيانات التدريب عن بيانات الاختبار.</li>
+<li><b>توحيد المقاييس:</b> نستخدم <code>StandardScaler</code> لأن KNN تعتمد على المسافات، فلا نريد أن يسيطر عمود أرقامه كبيرة على حساب المسافة.</li>
+<li><b>إنشاء النموذج:</b> نستخدم <code>KNeighborsClassifier</code> ونحدد عدد الجيران K.</li>
+<li><b>التدريب والتقييم:</b> نستخدم <code>fit</code> ثم <code>predict</code>، وبعدها نقيس الأداء بأدوات التقييم.</li>
+</ol>
+</div>
+
+<div class="card">
+<h2>التطبيق العملي باستخدام ملف CSV </h2>
+<p>سنطبق الخطوات على ملف بيانات ترفعه إلى Kaggle Notebook. سنقرأ الملف باستخدام <code>pd.read_csv()</code>، ثم نحدد الأعمدة التي سيعتمد عليها النموذج والعمود الذي نريد توقعه. في المثال سنفترض أن اسم العمود المستهدف هو <code>target</code>، ويمكنك تغييره حسب ملفك.</p>
+
+<h3>1. استيراد المكتبات</h3>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score,<br>classification_report</code></pre>
+<p>استوردنا الأدوات اللازمة لتحميل البيانات وتقسيمها وتوحيد مقاييسها وإنشاء النموذج ثم تقييمه.</p>
+
+<h3>2. تحميل البيانات وتحديد X و y</h3>
+<pre><code># قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# عرض أول خمس عينات ومعرفة أسماء الأعمدة
+print(df.head())
+print(df.columns)
+
+# تحديد اسم العمود الذي نريد توقعه
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+X = df.drop(columns=[target_column])
+y = df[target_column]
+
+# عرض عينة من الخصائص والعمود المستهدف
+print(X.head())
+print(y.head())</code></pre>
+<p><b>X</b> تحتوي على الأعمدة التي سيستخدمها النموذج للتوقع بعد استبعاد العمود المستهدف، أما <b>y</b> فتحتوي على الإجابة التي نريد من النموذج تعلم توقعها.</p>
+<div class="note"><b>على Kaggle:</b> افتح لوحة <b>Input</b> داخل Notebook، وحدد ملف CSV ثم انسخ مساره وضعه داخل <code>pd.read_csv()</code>. غيّر <code>target</code> إلى اسم العمود الذي تريد توقعه كما يظهر تمامًا في <code>df.columns</code>.</div>
+<div class="warning"><b>قبل تطبيق KNN:</b> يجب أن تكون الأعمدة الموجودة في X رقمية. إذا احتوت على نصوص أو فئات مثل أسماء المدن أو أنواع المنتجات، فستحتاج إلى تحويلها إلى أرقام. كذلك عالج القيم المفقودة قبل التدريب.</div>
+
+<h3>3. تقسيم البيانات — train_test_split</h3>
+<pre><code>X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)</code></pre>
+<ul>
+<li><b>X_train:</b> الخصائص التي سيتدرب عليها النموذج.</li><li><b>X_test:</b> الخصائص التي سنختبر النموذج عليها.</li>
+<li><b>y_train:</b> الإجابات الصحيحة لبيانات التدريب.</li><li><b>y_test:</b> الإجابات الصحيحة التي سنقارن بها توقعات النموذج.</li>
+<li><b>test_size=0.2:</b> تخصيص 20% للاختبار و80% للتدريب.</li>
+<li><b>random_state=42:</b> تثبيت طريقة التقسيم حتى نحصل على نفس النتائج عند إعادة التشغيل.</li>
+<li><b>stratify=y:</b> الحفاظ قدر الإمكان على نفس نسبة الفئات في مجموعتي التدريب والاختبار.</li>
+</ul>
+<div class="warning"><b>مهم:</b> لا ندرّب النموذج على بيانات الاختبار؛ فهي مخصصة لتقييمه على بيانات لم يرها أثناء التدريب.</div>
+
+<h3>4. توحيد المقاييس — StandardScaler</h3>
+<pre><code>scaler = StandardScaler()
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)</code></pre>
+<p>KNN تقارن العينات عن طريق المسافة. إذا كانت قيم Feature ما بين 0 و1، بينما قيم Feature أخرى بين 0 و1000، فقد يؤثر العمود الأكبر بصورة غير عادلة في حساب المسافة.</p>
+<ul><li><b>fit_transform:</b> يحسب المتوسط والانحراف المعياري من بيانات التدريب، ثم يحول بيانات التدريب.</li>
+<li><b>transform:</b> يستخدم نفس القيم التي تعلمها من التدريب لتحويل بيانات الاختبار، دون حساب قيم جديدة منها.</li></ul>
+<div class="note"><b>قاعدة لتجنب Data Leakage:</b> نستخدم <code>fit</code> أو <code>fit_transform</code> على X_train فقط. لا نعمل <code>fit</code> على X_test؛ حتى لا تدخل معلومات الاختبار في مرحلة تجهيز النموذج.</div>
+
+<h3>5. إنشاء نموذج KNN وتدريبه</h3>
+<pre><code>knn = KNeighborsClassifier(n_neighbors=5)
+
+knn.fit(X_train_scaled, y_train)</code></pre>
+<p><code>KNeighborsClassifier</code> هو الكلاس الذي ينشئ نموذج KNN للتصنيف. أما <code>n_neighbors=5</code> فتعني أن النموذج سيبحث عن أقرب خمس عينات عند تصنيف عينة جديدة.</p>
+<p>الدالة <code>fit</code> تستقبل بيانات التدريب والإجابات الصحيحة. وتُعد KNN من خوارزميات <b>Lazy Learning</b>؛ فهي تحتفظ ببيانات التدريب وتؤجل البحث عن الجيران إلى وقت التنبؤ، بدلًا من بناء نموذج بمعاملات يتم تعلمها بالطريقة التقليدية.</p>
+
+<h3>6. إجراء التوقع — predict</h3>
+<pre><code>y_pred = knn.predict(X_test_scaled)</code></pre>
+<p>نرسل بيانات الاختبار بعد توحيد مقاييسها إلى النموذج. يبحث KNN عن أقرب K جيران لكل عينة، ثم يحدد الفئة المتوقعة. نخزن النتائج في <code>y_pred</code>.</p>
+
+<h3>7. تقييم النموذج</h3>
+<pre><code>accuracy = accuracy_score(y_test, y_pred)
+
+print("Accuracy:", accuracy)
+print(classification_report(y_test, y_pred))</code></pre>
+<p><code>accuracy_score</code> تحسب نسبة التوقعات الصحيحة من إجمالي التوقعات:</p>
+<div class="note ltr">Accuracy = Number of Correct Predictions / Total Predictions</div>
+<p>أما <code>classification_report</code> فتعرض مقاييس تفصيلية لكل فئة:</p>
+<table><tr><th>Metric</th><th>المعنى</th></tr>
+<tr><td>Precision</td><td>من كل العينات التي توقع النموذج أنها من فئة معينة، كم عينة كانت صحيحة فعلًا؟</td></tr>
+<tr><td>Recall</td><td>من كل العينات التي تنتمي فعلًا لفئة معينة، كم عينة اكتشفها النموذج؟</td></tr>
+<tr><td>F1-score</td><td>مقياس يجمع بين Precision وRecall في قيمة واحدة.</td></tr>
+<tr><td>Support</td><td>عدد العينات الحقيقية الموجودة من كل فئة في بيانات الاختبار.</td></tr></table>
+<p>لا تعتمد على Accuracy وحدها دائمًا؛ فقد تكون البيانات غير متوازنة، وعندها قد تخفي هذه النسبة ضعف النموذج في اكتشاف فئة معينة.</p>
+</div>
+
+<div class="card">
+<h2>الكود كاملًا </h2>
+<p>يمكنك نسخ الكود التالي وتشغيله في Notebook أو ملف Python. جميع التعليقات داخل الكود باللغة العربية فقط.</p>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# تحديد اسم العمود الذي نريد توقعه
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+X = df.drop(columns=[target_column])
+y = df[target_column]
+
+# تقسيم البيانات إلى تدريب واختبار مع الحفاظ على توزيع الفئات
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# إنشاء أداة توحيد المقاييس
+scaler = StandardScaler()
+
+# تعلم قيم التوحيد من بيانات التدريب وتطبيقها عليها
+X_train_scaled = scaler.fit_transform(X_train)
+
+# تطبيق نفس قيم التوحيد على بيانات الاختبار
+X_test_scaled = scaler.transform(X_test)
+
+# إنشاء نموذج يعتمد على أقرب خمسة جيران
+knn = KNeighborsClassifier(n_neighbors=5)
+
+# تدريب النموذج باستخدام بيانات التدريب
+knn.fit(X_train_scaled, y_train)
+
+# توقع الفئات الخاصة ببيانات الاختبار
+y_pred = knn.predict(X_test_scaled)
+
+# حساب دقة النموذج
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+# عرض تقرير تفصيلي لأداء النموذج في كل فئة
+print(classification_report(y_test, y_pred))</code></pre>
+</div>
+
+<div class="card">
+<h2>كيف نختار قيمة K؟</h2>
+<p>قيمة K تؤثر في طريقة اتخاذ القرار:</p>
+<ul><li><b>K صغيرة جدًا:</b> يصبح النموذج حساسًا للضوضاء والعينات القريبة جدًا.</li>
+<li><b>K كبيرة جدًا:</b> قد يتأثر القرار بعدد كبير من العينات، وقد يفقد النموذج تفاصيل مهمة بين الفئات.</li></ul>
+<p>لا توجد قيمة مثالية ثابتة لكل البيانات. يمكن تجربة عدة قيم ومقارنة أدائها باستخدام <b>Validation Set</b> أو <b>Cross-Validation</b>.</p>
+<p>في التصنيف الثنائي، اختيار K فردية قد يقلل احتمالية التعادل بين الفئتين، لكنه ليس شرطًا عامًا في مسائل التصنيف متعددة الفئات.</p>
+</div>
+
+<div class="card">
+<h2>ملخص الأدوات الأساسية</h2>
+<table><tr><th>الأداة</th><th>وظيفتها</th></tr>
+<tr><td><code>train_test_split</code></td><td>تقسيم البيانات إلى تدريب واختبار.</td></tr>
+<tr><td><code>StandardScaler</code></td><td>توحيد مقياس الخصائص لتصبح المقارنة بالمسافات أكثر عدلًا.</td></tr>
+<tr><td><code>KNeighborsClassifier</code></td><td>إنشاء نموذج KNN للتصنيف.</td></tr>
+<tr><td><code>fit()</code></td><td>تجهيز النموذج باستخدام بيانات التدريب.</td></tr>
+<tr><td><code>predict()</code></td><td>إنتاج الفئات المتوقعة.</td></tr>
+<tr><td><code>accuracy_score</code></td><td>حساب نسبة التوقعات الصحيحة.</td></tr>
+<tr><td><code>classification_report</code></td><td>عرض Precision وRecall وF1-score وSupport.</td></tr></table>
+</div>
+
+<div class="card">
+<h2>تدريب عملي</h2>
+<ol>
+<li>غيّر قيمة <code>n_neighbors</code> إلى 3 ثم 7 ثم 9، وقارن النتائج.</li>
+<li>احذف <code>stratify=y</code> ولاحظ أن توزيع الفئات في التقسيم قد يتغير.</li>
+<li>جرّب تشغيل النموذج دون StandardScaler وقارن الأداء؛ فمدى أهمية التوحيد يعتمد على مقاييس البيانات.</li>
+<li>استخدم مجموعة بيانات أخرى تحتوي على خصائص رقمية وعمود Target، وطبّق عليها الخطوات نفسها.</li>
+</ol>
+<div class="warning"><b>ترتيب العمل الذي يجب أن تتذكره:</b><br><span class="ltr">Split → Scale → Create Model → Fit → Predict → Evaluate</span></div>
+</div>
+</div><script src="app.js"></script>
+</body></html>

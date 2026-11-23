@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Learning</title>
+<style>
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; margin: 40px; background-color: #f9f9f9; }
+        h2 { color: #2563eb; margin-top: 30px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+        h3 { color: #0d9488; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #cbd5e1; padding: 12px; text-align: right; }
+        th { background-color: #f1f5f9; color: #1e3a8a; font-weight: bold; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        pre{background:#1e293b;color:#f8fafc;padding:16px;border-radius:8px;overflow-x:auto;font-family: Consolas, "Courier New",monospace;text-align:left;direction:ltr;unicode-bidi:embed;white-space:pre;tab-size:4 ;line-height: 2.2}
+        code{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:embed}.comment { color: #64748b; font-style: italic; }
+        .keyword { color: #f43f5e; font-weight: bold; }
+        .important { background-color: #ffedd5; border-right: 5px solid #f97316; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .exercise { background-color: #f0fdf4; border-right: 5px solid #22c55e; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .error-box { background-color: #fef2f2; border-right: 5px solid #ef4444; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0; }
+        .nav-box { background-color: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 8px; margin-bottom: 30px; }
+        .nav-box ul { list-style: none; padding: 0; }
+        .nav-box li { margin: 8px 0; }
+        .nav-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+        .nav-box a:hover { text-decoration: underline; }
+.card{background:#fff;padding:20px;margin:20px 0;border-radius:8px}
+.note{background:#eff6ff;border-right:5px solid #2563eb;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.warning{background:#ffedd5;border-right:5px solid #f97316;padding:15px;margin:20px 0;border-radius:0 4px 4px 0}
+.ltr{direction:ltr;text-align:left}
+</style><link rel="stylesheet" href="menu.css">
+</head>
+<body><div class="container">
+<header>
+        <button id="menuBtn" >|||</button>
+        <h1>Decision Tree | Machine Learning</h1>   
+        <div id="sidebar">
+            <p class="hhh">Python Learning</p>
+            <a href="index.html" target="_self">Python basics</a>
+            <a href="oop.html" target="_self">OOP</a>
+            <a href="eda.html" target="_self">EDA</a>
+            <a href="knn.html" target="_self">KNN Algorithm</a>
+            <a href="linear_regression.html" target="_self">linear_R Algorithm</a>
+            <a href="logistic_regression.html" target="_self">logistic_R Algorithm</a>
+        </div>
+        <div ID="overlay"></div>
+    </header>
+
+<div class="card">
+<h2>ما هي خوارزمية Decision Tree؟</h2>
+<p>خوارزمية <b>Decision Tree</b> أو <b>شجرة القرار</b> من خوارزميات <b>Supervised Machine Learning</b>. تُستخدم في <b>Classification</b> للتنبؤ بفئة، ويمكن استخدامها أيضًا في <b>Regression</b> للتنبؤ بقيمة رقمية.</p>
+<p>تعتمد فكرتها على تقسيم البيانات إلى مجموعات أصغر عن طريق أسئلة متتابعة حول الخصائص (Features). كل سؤال يحدد المسار الذي ستسلكه العينة داخل الشجرة، حتى تصل إلى ورقة نهائية <b>Leaf</b> تحتوي على التوقع.</p>
+<div class="note"><b>مثال:</b> نريد توقع هل سيشتري العميل منتجًا أم لا. قد تبدأ الشجرة بسؤال: هل عمر العميل أكبر من 30؟ ثم تسأل في كل فرع سؤالًا آخر مثل: هل دخله مرتفع؟ وفي النهاية تصل إلى قرار مثل <b>Yes</b> أو <b>No</b>.</div>
+</div>
+
+
+
+<div class="card">
+<h2>كيف تختار الشجرة أفضل تقسيم؟</h2>
+<p>في مسائل التصنيف، تستخدم Decision Tree مقاييس لتقدير مدى اختلاط الفئات داخل العقدة، ومن أشهرها:</p>
+<table><tr><th>المقياس</th><th>الفكرة</th></tr>
+<tr><td><b>Gini Impurity</b></td><td>يقيس احتمال تصنيف عينة بشكل خاطئ إذا اخترنا فئتها عشوائيًا وفق توزيع الفئات داخل العقدة. كلما قلت القيمة كان ذلك أفضل.</td></tr>
+<tr><td><b>Entropy</b></td><td>تقيس مقدار عدم اليقين أو الاختلاط بين الفئات. القيمة الأقل تعني أن العقدة أكثر نقاءً.</td></tr>
+<tr><td><b>Information Gain</b></td><td>مقدار الانخفاض في Entropy بعد إجراء تقسيم معين. تفضّل الخوارزمية التقسيم الذي يحقق تحسنًا أكبر.</td></tr></table>
+<div class="note">في scikit-learn يمكن تحديد طريقة التقسيم باستخدام <code>criterion="gini"</code> أو <code>criterion="entropy"</code>. وفي بعض الإصدارات يتوفر أيضًا <code>criterion="log_loss"</code>.</div>
+</div>
+
+<div class="card">
+<h2>خطوات بناء النموذج</h2>
+<ol>
+<li><b>تحميل البيانات:</b> نقرأ ملف CSV ونحدد Features (X) وTarget (y).</li>
+<li><b>تقسيم البيانات:</b> نستخدم <code>train_test_split</code> لتكوين بيانات تدريب واختبار.</li>
+<li><b>إنشاء النموذج:</b> نستخدم <code>DecisionTreeClassifier</code> ونحدد إعداداته الأساسية.</li>
+<li><b>التدريب:</b> نستخدم <code>fit</code> حتى يتعلم النموذج قواعد التقسيم من بيانات التدريب.</li>
+<li><b>التوقع والتقييم:</b> نستخدم <code>predict</code> ثم نقارن التوقعات بالإجابات الصحيحة.</li>
+</ol>
+<div class="important"><b>ملاحظة مهمة:</b> على عكس KNN، لا نحتاج عادةً إلى <code>StandardScaler</code> مع Decision Tree؛ لأن قرارات الشجرة تعتمد على شروط وتقسيمات القيم، وليس على حساب المسافات بينها.</div>
+</div>
+
+<div class="card">
+<h2>التطبيق العملي باستخدام ملف CSV </h2>
+<p>سنستخدم ملف بيانات بصيغة CSV. المثال التالي يفترض أن اسم العمود الذي نريد توقعه هو <code>target</code>، لذلك غيّره إلى الاسم الفعلي الموجود في Dataset الخاصة بك.</p>
+<h3>1. استيراد المكتبات</h3>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score,<br>classification_report, confusion_matrix</code></pre>
+<p>استوردنا Pandas لقراءة البيانات، وأدوات تقسيم البيانات وإنشاء نموذج Decision Tree للتصنيف، بالإضافة إلى أدوات التقييم.</p>
+
+<h3>2. تحميل البيانات وتحديد X و y</h3>
+<pre>
+<code># قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# عرض أول خمس عينات وأسماء الأعمدة
+print(df.head())
+print(df.columns)
+
+# تحديد العمود الذي نريد توقعه
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+X = df.drop(columns=[target_column])
+y = df[target_column]</code></pre>
+<ul>
+<li><b>X:</b> الأعمدة التي سيستخدمها النموذج لاتخاذ القرار.</li>
+<li><b>y:</b> الإجابات الصحيحة التي سيتعلم النموذج توقعها.</li>
+</ul>
+<div class="note"><b>على Kaggle:</b> افتح لوحة <b>Input</b> داخل Notebook، واختر ملف CSV وانسخ مساره إلى <code>pd.read_csv()</code>. تأكد من كتابة اسم عمود Target كما يظهر تمامًا في <code>df.columns</code>.</div>
+<div class="warning"><b>قبل التدريب:</b> يجب أن تكون الخصائص في X قابلة للمعالجة رقميًا. إذا كانت هناك أعمدة نصية أو فئوية مثل أسماء المدن أو أنواع المنتجات، فحوّلها إلى أرقام باستخدام Encoding مناسب. وعالج القيم المفقودة أيضًا. لا تحذف عمود Target من y.</div>
+
+<h3>3. تقسيم البيانات — train_test_split</h3>
+<pre><code>X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)</code></pre>
+<ul>
+<li><b>X_train:</b> الخصائص التي سيتعلم منها النموذج.</li>
+<li><b>X_test:</b> الخصائص التي سنختبر النموذج عليها.</li>
+<li><b>y_train:</b> الإجابات الصحيحة لبيانات التدريب.</li>
+<li><b>y_test:</b> الإجابات الصحيحة التي سنقارن بها التوقعات.</li>
+<li><b>test_size=0.2:</b> تخصيص 20% للاختبار و80% للتدريب.</li>
+<li><b>random_state=42:</b> تثبيت التقسيم للحصول على نفس النتيجة عند إعادة التشغيل.</li>
+<li><b>stratify=y:</b> الحفاظ قدر الإمكان على نسب الفئات في مجموعتي التدريب والاختبار.</li>
+</ul>
+
+<h3>4. إنشاء نموذج Decision Tree</h3>
+<pre><code>dt = DecisionTreeClassifier(
+    criterion="gini",
+    max_depth=4,
+    random_state=42
+)</code></pre>
+<p><code>DecisionTreeClassifier</code> هو الكلاس المسؤول عن إنشاء نموذج شجرة قرار للتصنيف. أما الإعدادات:</p>
+<ul>
+<li><b>criterion="gini":</b> يحدد المقياس الذي تستخدمه الشجرة لاختيار أفضل تقسيم. يمكن تجربة <code>"entropy"</code> بدلًا منه.</li>
+<li><b>max_depth=4:</b> يحدد أقصى عمق للشجرة. وضع حد للعمق يساعد على منع الشجرة من التعقيد الزائد.</li>
+<li><b>random_state=42:</b> يجعل النتائج قابلة للتكرار عند إعادة التشغيل.</li>
+</ul>
+<div class="note">يمكن حذف <code>max_depth</code>، لكن الشجرة قد تنمو بشكل كبير وتتعلم تفاصيل زائدة من بيانات التدريب. لذلك نبدأ غالبًا بعمق محدود ثم نقارن الأداء.</div>
+
+<h3>5. تدريب النموذج — fit</h3>
+<pre><code>dt.fit(X_train, y_train)</code></pre>
+<p>هنا يتعلم النموذج من الخصائص <code>X_train</code> والإجابات الصحيحة <code>y_train</code>، ويكوّن قواعد التقسيم التي ستشكل الشجرة.</p>
+
+<h3>6. إجراء التوقع — predict</h3>
+<pre><code>y_pred = dt.predict(X_test)</code></pre>
+<p>نرسل خصائص بيانات الاختبار إلى النموذج، فيمرر كل عينة عبر شروط الشجرة حتى يصل إلى Leaf ويُنتج الفئة المتوقعة. نخزن التوقعات في <code>y_pred</code>.</p>
+
+<h3>7. تقييم النموذج</h3>
+<pre><code>print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))</code></pre>
+<table><tr><th>الأداة / المقياس</th><th>المعنى</th></tr>
+<tr><td><code>accuracy_score</code></td><td>نسبة التوقعات الصحيحة من إجمالي التوقعات.</td></tr>
+<tr><td><code>Precision</code></td><td>من العينات التي توقع النموذج أنها تنتمي لفئة معينة، كم عينة كانت صحيحة؟</td></tr>
+<tr><td><code>Recall</code></td><td>من العينات التي تنتمي فعلًا لفئة معينة، كم عينة اكتشفها النموذج؟</td></tr>
+<tr><td><code>F1-score</code></td><td>مقياس يجمع بين Precision وRecall.</td></tr>
+<tr><td><code>Support</code></td><td>عدد العينات الحقيقية من كل فئة في بيانات الاختبار.</td></tr>
+<tr><td><code>confusion_matrix</code></td><td>جدول يوضح عدد التوقعات الصحيحة والخاطئة لكل فئة.</td></tr></table>
+<p>لا تعتمد على Accuracy وحدها إذا كانت البيانات غير متوازنة؛ راجع Precision وRecall وConfusion Matrix أيضًا.</p>
+</div>
+
+<div class="card">
+<h2>الكود كاملًا </h2>
+<p>هذا هو الكود الأساسي الذي تحتاجه لتطبيق Decision Tree Classification. لا نحتاج هنا إلى <code>StandardScaler</code>؛ لأن الشجرة لا تعتمد على حساب المسافات.</p>
+<pre><code>import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report
+
+# قراءة ملف البيانات  
+df = pd.read_csv("مسار الملف")
+
+# تحديد العمود المستهدف
+target_column = "target"
+
+# فصل الخصائص عن العمود المستهدف
+X = df.drop(columns=[target_column])
+y = df[target_column]
+
+# تقسيم البيانات إلى تدريب واختبار
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+# إنشاء نموذج شجرة القرار
+dt = DecisionTreeClassifier(max_depth=4, random_state=42)
+
+# تدريب النموذج
+dt.fit(X_train, y_train)
+
+# إجراء التوقعات
+y_pred = dt.predict(X_test)
+
+# تقييم النموذج
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))</code></pre>
+<div class="note"><b>لتشغيل الكود:</b> غيّر مسار CSV واسم <code>target</code> حسب Dataset الخاصة بك، وتأكد من معالجة القيم المفقودة وتحويل الأعمدة النصية إلى أرقام عند الحاجة.</div>
+</div>
+
+<div class="card">
+<h2>أهم الإعدادات التي تتحكم في الشجرة</h2>
+<table><tr><th>الإعداد</th><th>وظيفته</th></tr>
+<tr><td><code>criterion</code></td><td>طريقة قياس جودة التقسيم مثل Gini أو Entropy.</td></tr>
+<tr><td><code>max_depth</code></td><td>أقصى عمق مسموح للشجرة.</td></tr>
+<tr><td><code>min_samples_split</code></td><td>أقل عدد عينات مطلوب داخل العقدة حتى يُسمح بتقسيمها.</td></tr>
+<tr><td><code>min_samples_leaf</code></td><td>أقل عدد عينات يجب أن يبقى في كل Leaf.</td></tr>
+<tr><td><code>random_state</code></td><td>تثبيت العشوائية للحصول على نتائج قابلة للتكرار.</td></tr></table>
+<div class="warning"><b>Overfitting:</b> قد تحفظ الشجرة تفاصيل بيانات التدريب، فتؤدي أداءً ممتازًا عليها وأضعف على بيانات جديدة. تقليل <code>max_depth</code> أو زيادة <code>min_samples_leaf</code> قد يساعد على الحد من المشكلة.</div>
+</div>
+
+<div class="card">
+<h2>هل هناك شيء يمكن الاستغناء عنه؟</h2>
+<ul>
+<li><b>StandardScaler:</b> يمكن الاستغناء عنه في Decision Tree؛ فهو ليس مطلوبًا عادةً لهذه الخوارزمية.</li>
+<li><b>استيراد confusion_matrix:</b> اختياري إذا كنت تحتاج فقط إلى Accuracy وClassification Report.</li>
+<li><b>criterion:</b> يمكن عدم كتابته؛ لأن النموذج يستخدم قيمة افتراضية مناسبة، لكن كتابته مفيد للتعلم والتجربة.</li>
+<li><b>max_depth:</b> ليس ضروريًا لتشغيل النموذج، لكنه مفيد للتحكم في تعقيد الشجرة وتقليل Overfitting.</li>
+<li><b>random_state:</b> يمكن حذفه، لكن تركه يجعل التجارب أسهل في المقارنة وإعادة التشغيل.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>ملخص سريع</h2>
+<table><tr><th>الأداة</th><th>وظيفتها</th></tr>
+<tr><td><code>train_test_split</code></td><td>تقسيم البيانات إلى تدريب واختبار.</td></tr>
+<tr><td><code>DecisionTreeClassifier</code></td><td>إنشاء نموذج شجرة قرار للتصنيف.</td></tr>
+<tr><td><code>fit()</code></td><td>تعلم قواعد الشجرة من بيانات التدريب.</td></tr>
+<tr><td><code>predict()</code></td><td>توقع الفئات لبيانات جديدة.</td></tr>
+<tr><td><code>accuracy_score</code></td><td>حساب نسبة التوقعات الصحيحة.</td></tr>
+<tr><td><code>classification_report</code></td><td>عرض Precision وRecall وF1-score وSupport.</td></tr></table>
+<div class="note"><b>ترتيب العمل:</b><br><span class="ltr">Load Data → Split → Create Model → Fit → Predict → Evaluate</span></div>
+</div>
+
+<div class="card">
+<h2>تدريب عملي</h2>
+<ol>
+<li>جرّب <code>max_depth=2</code> ثم 4 ثم 8، وقارن Accuracy.</li>
+<li>غيّر <code>criterion</code> من <code>"gini"</code> إلى <code>"entropy"</code> ولاحظ الفرق.</li>
+<li>جرّب حذف <code>max_depth</code>، ثم قارن أداء التدريب والاختبار لاكتشاف Overfitting.</li>
+<li>استخدم Dataset أخرى من Kaggle وغيّر اسم عمود Target ومسار الملف.</li>
+</ol>
+</div>
+</div><script src="app.js"></script>
+</body></html>

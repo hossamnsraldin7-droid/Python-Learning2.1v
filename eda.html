@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ar" >
+<head>
+    <!--حل مشكلة الكلام اللي ف القائمة الجانبية-->
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="menu.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Learning</title>
+    <style>
+        body {font-family: Arial, sans-serif;line-height: 1.6;color: #333;margin: 40px;background-color: #f9f9f9;}
+        h2 {color: #2563eb;margin-top: 34px;border-bottom: 2px solid #e5e7eb;padding-bottom: 6px;}
+        h3 { color: #0d9488; margin-top: 24px; }
+        table {width: 100%;border-collapse: collapse;margin: 20px 0;background: #fff;box-shadow: 0 2px 4px rgba(0,0,0,.08);}
+        th, td {border: 1px solid #cbd5e1;padding: 11px;text-align: left;vertical-align: top;}
+        th { background: #f1f5f9; color: #1e3a8a; }
+        tr:nth-child(even) { background: #f8fafc; }
+        pre {background: #1e293b;color: #f8fafc;padding: 16px;border-radius: 8px;overflow-x: auto;font-family: Consolas, "Courier New", monospace;text-align: left;direction: ltr;unicode-bidi: embed;white-space: pre;line-height: 1.65;tab-size: 4;line-height: 2.2}
+        code {font-family: Consolas, "Courier New", monospace;direction: ltr;unicode-bidi: embed;}
+        .comment { color: #94a3b8; font-style: italic; }
+        .important, .exercise, .error-box, .nav-box, .step-box {padding: 15px 18px;margin: 20px 0;border-radius: 7px;}
+        .important {background: #ffedd5;border-left: 5px solid #f97316;}
+        .exercise {background: #f0fdf4;border-left: 5px solid #22c55e;}
+        .error-box {background: #fef2f2;border-left: 5px solid #ef4444;}
+        .nav-box {background: #eff6ff;border: 1px solid #bfdbfe;}
+        .nav-box ul { margin-bottom: 0; }
+        .nav-box a { color: #2563eb; text-decoration: none; font-weight: bold; }
+        .nav-box a:hover { text-decoration: underline; }
+        .step-box {background: #fff;border: 1px solid #dbeafe;border-left: 5px solid #2563eb;}
+        .step-box strong { color: #1e40af; }
+    </style>
+</head>
+<body>
+  <header>
+        <h1>EDA - Exploratory Data Analysis</h1>
+        <button id="menuBtn" >|||</button>
+        <div id="sidebar">
+            <p class="hhh">Python Learning</p>
+            <a href="index.html" target="_self">Python basics</a>
+            <a href="oop.html" target="_self">OOP</a>
+            <a href="knn.html" target="_self">KNN Algorithm</a>
+            <a href="d_t.html" target="_self">D_Tree Algorithm</a>
+            <a href="linear_regression.html" target="_self">linear_R Algorithm</a>
+            <a href="logistic_regression.html" target="_self">logistic_R Algorithm</a>
+
+        </div>
+        <div ID="overlay"></div>
+    </header>
+<p style="text-align:center;font-weight:bold;">
+    A practical guide to understanding, cleaning, and exploring datasets using Python.
+</p>
+<div class="nav-box">
+    <h2 style="margin-top:0;">📑 Contents</h2>       
+
+    <ul>
+        <li><a href="#intro">01. What is EDA</a></li>
+        <li><a href="#workflow">02. EDA Workflow</a></li>
+        <li><a href="#setup">03. Setup and Load Data</a></li>
+        <li><a href="#basic">04. Basic EDA</a></li>
+        <li><a href="#cleaning">05. Data Cleaning</a></li>
+        <li><a href="#visual">06. Data Visualization</a></li>
+        <li><a href="#advanced">07. Advanced EDA</a></li>
+        <li><a href="#checklist">08. Final Checklist</a></li>
+    </ul>
+</div>
+
+<h2 id="intro">01. What is EDA</h2>
+<p>
+    <strong>Exploratory Data Analysis (EDA)</strong> is the process of examining a dataset
+    before building a Machine Learning model. It helps us understand the structure,
+    quality, patterns, relationships, and unusual values in the data.
+</p>
+<p>EDA mainly answers questions such as:</p>
+<ul>
+    <li>How many rows and columns are in the dataset?</li>
+    <li>What does each column represent?</li>
+    <li>Are there missing or duplicated values?</li>
+    <li>Are there outliers or unusual distributions?</li>
+    <li>Which features are related to each other or to the target?</li>
+</ul>
+
+<div class="important">
+    <strong>Important:</strong> EDA is not just creating charts. It is a reasoning process:
+    inspect the data, ask questions, test assumptions, and document what you discover.
+</div>
+
+<h2 id="workflow">02. EDA Workflow</h2>
+<p>Follow this order when starting a new dataset:</p>
+
+<div class="step-box"><strong>Step 1 — Load the dataset:</strong> Import the required libraries and read the file.</div>
+<div class="step-box"><strong>Step 2 — Preview the data:</strong> Display the first and last rows.</div>
+<div class="step-box"><strong>Step 3 — Understand the structure:</strong> Check shape, column names, data types, and memory information.</div>
+<div class="step-box"><strong>Step 4 — Generate statistics:</strong> Inspect count, mean, standard deviation, minimum, maximum, and quartiles.</div>
+<div class="step-box"><strong>Step 5 — Check data quality:</strong> Find missing values, duplicates, and invalid values.</div>
+<div class="step-box"><strong>Step 6 — Clean the data:</strong> Handle missing values, duplicates, and incorrect data types when appropriate.</div>
+<div class="step-box"><strong>Step 7 — Explore individual features:</strong> Study distributions and category frequencies.</div>
+<div class="step-box"><strong>Step 8 — Explore relationships:</strong> Compare features and inspect correlation where suitable.</div>
+<div class="step-box"><strong>Step 9 — Summarize findings:</strong> Record useful observations and decide what preparation is needed before modeling.</div>
+
+<div class="important">
+    The workflow is a guide, not a strict law. You may return to earlier steps when a chart
+    or statistic reveals a data-quality problem.
+</div>
+
+<h2 id="setup">03. Setup and Load Data</h2>
+
+<h3>3.1 Import Libraries</h3>
+<p>These are common libraries used during EDA:</p>
+<table>
+    <tr><th>Library</th><th>Purpose</th></tr>
+    <tr><td><code>pandas</code></td><td>Load, inspect, clean, and manipulate tabular data.</td></tr>
+    <tr><td><code>numpy</code></td><td>Numerical operations and array handling.</td></tr>
+    <tr><td><code>matplotlib.pyplot</code></td><td>Create plots and charts.</td></tr>
+    <tr><td><code>seaborn</code></td><td>Create statistical visualizations with concise syntax.</td></tr>
+</table>
+
+<pre>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Set a default chart style
+sns.set_theme(style="whitegrid")</pre>
+
+<h3>3.2 Load a Dataset</h3>
+<p>For a CSV file, use <code>read_csv()</code>:</p>
+<pre>df = pd.read_csv("data.csv")
+
+# For an Excel file:
+# df = pd.read_excel("data.xlsx")</pre>
+
+<div class="important">
+    <strong>Note:</strong> Replace <code>data.csv</code> with the actual file path.
+    In Kaggle, datasets are commonly available under <code>/kaggle/input/</code>.
+</div>
+
+<h2 id="basic">04. Basic EDA</h2>
+
+<h3>4.1 Preview the Dataset — head() and tail()</h3>
+<p><code>head()</code> displays the first rows; <code>tail()</code> displays the last rows.
+They help us quickly inspect values and column layout.</p>
+<pre>df.head()       # First 5 rows
+df.head(10)     # First 10 rows
+df.tail()       # Last 5 rows</pre>
+
+<h3>4.2 Dataset Dimensions — shape</h3>
+<p><code>shape</code> returns a tuple: <code>(number_of_rows, number_of_columns)</code>.</p>
+<pre>print(df.shape)
+
+# Example output:
+# (150, 5)</pre>
+
+<h3>4.3 Column Names — columns</h3>
+<p>Use <code>columns</code> to display all feature names.</p>
+<pre>print(df.columns)</pre>
+
+<h3>4.4 Data Types and Non-Null Counts — info()</h3>
+<p><code>info()</code> shows column names, non-null counts, data types, and memory usage.</p>
+<pre>df.info()</pre>
+
+<h3>4.5 Summary Statistics — describe()</h3>
+<p><code>describe()</code> generates statistical summaries for numeric columns by default.</p>
+<pre>df.describe()
+
+# Include categorical columns too:
+df.describe(include="all")</pre>
+
+<table>
+    <tr><th>Statistic</th><th>Meaning</th></tr>
+    <tr><td><code>count</code></td><td>Number of non-missing values.</td></tr>
+    <tr><td><code>mean</code></td><td>Arithmetic average.</td></tr>
+    <tr><td><code>std</code></td><td>Standard deviation; measures spread.</td></tr>
+    <tr><td><code>min / max</code></td><td>Smallest and largest values.</td></tr>
+    <tr><td><code>25% / 50% / 75%</code></td><td>Quartiles; 50% is the median.</td></tr>
+</table>
+
+<h3>4.6 Unique Values — unique() and nunique()</h3>
+<p><code>unique()</code> returns the distinct values; <code>nunique()</code> counts them.</p>
+<pre>print(df["category"].unique())
+print(df["category"].nunique())</pre>
+
+<h3>4.7 Value Frequencies — value_counts()</h3>
+<p>Useful for understanding categorical columns and class distribution.</p>
+<pre>print(df["category"].value_counts())
+
+# Show proportions instead of raw counts:
+print(df["category"].value_counts(normalize=True))</pre>
+
+<h2 id="cleaning">05. Data Cleaning</h2>
+
+<h3>5.1 Missing Values — isnull() and isna()</h3>
+<p>Missing values can affect statistics and Machine Learning models.</p>
+<pre># Number of missing values in each column
+print(df.isnull().sum())
+
+# Percentage of missing values
+missing_percent = df.isnull().mean() * 100
+print(missing_percent.sort_values(ascending=False))</pre>
+
+<h3>5.2 Handling Missing Values</h3>
+<p>Choose a method based on the feature meaning, missingness pattern, and analysis goal.</p>
+<pre># Remove rows containing at least one missing value
+df_drop_rows = df.dropna()
+
+# Fill a numeric column with its median
+df["age"] = df["age"].fillna(df["age"].median())
+
+# Fill a categorical column with its most frequent value
+df["city"] = df["city"].fillna(df["city"].mode()[0])</pre>
+
+<div class="important">
+    Median is often more robust than mean when numeric data contains extreme values.
+    However, no single filling method is correct for every dataset.
+</div>
+
+<h3>5.3 Duplicate Rows — duplicated() and drop_duplicates()</h3>
+<pre># Count duplicated rows
+print(df.duplicated().sum())
+
+# Remove duplicated rows
+df = df.drop_duplicates()</pre>
+
+<h3>5.4 Data Types — astype()</h3>
+<p>Sometimes a column contains numbers stored as text. Convert it only after checking its values.</p>
+<pre># Convert a column to integer
+df["age"] = df["age"].astype("int64")
+
+# Convert a column to datetime
+df["date"] = pd.to_datetime(df["date"], errors="coerce")</pre>
+
+<h3>5.5 Check and Handle Outliers</h3>
+<p>
+    An <strong>outlier</strong> is a value that is unusually far from most observations.
+    It may be an error, a rare valid case, or an important observation.
+</p>
+<p><strong>IQR method:</strong> IQR = Q3 - Q1. A common rule flags values below Q1 - 1.5 × IQR
+or above Q3 + 1.5 × IQR.</p>
+<pre>Q1 = df["salary"].quantile(0.25)
+Q3 = df["salary"].quantile(0.75)
+IQR = Q3 - Q1
+
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+outliers = df[
+    (df["salary"] < lower_bound) |
+    (df["salary"] > upper_bound)
+]
+
+print(outliers)</pre>
+
+<div class="error-box">
+    Do not delete outliers automatically. First investigate whether they are data-entry errors
+    or genuine observations. Removing valid values can damage the analysis.
+</div>
+
+<h2 id="visual">06. Data Visualization</h2>
+<p>Charts help reveal distributions, patterns, class imbalance, and relationships.</p>
+
+<h3>6.1 Histogram — Distribution of a Numeric Feature</h3>
+<p>A histogram groups numeric values into bins and shows how frequently values occur.</p>
+<pre>plt.figure(figsize=(8, 5))
+sns.histplot(data=df, x="age", bins=20, kde=True)
+
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Frequency")
+plt.show()</pre>
+
+<h3>6.2 Boxplot — Spread and Potential Outliers</h3>
+<p>A boxplot displays the median, quartiles, spread, and potential outliers.</p>
+<pre>plt.figure(figsize=(8, 5))
+sns.boxplot(data=df, x="salary")
+
+plt.title("Salary Boxplot")
+plt.show()</pre>
+
+<h3>6.3 Countplot — Categorical Frequencies</h3>
+<p>Use a countplot to compare the number of observations in each category.</p>
+<pre>plt.figure(figsize=(8, 5))
+sns.countplot(data=df, x="category")
+
+plt.title("Category Counts")
+plt.xticks(rotation=45)
+plt.show()</pre>
+
+<h3>6.4 Scatterplot — Relationship Between Two Numeric Features</h3>
+<p>A scatterplot helps identify trends, clusters, and unusual points.</p>
+<pre>plt.figure(figsize=(8, 5))
+sns.scatterplot(data=df, x="age", y="salary")
+
+plt.title("Age vs Salary")
+plt.show()</pre>
+
+<h3>6.5 Correlation Heatmap</h3>
+<p>
+    Correlation measures the strength and direction of a linear relationship between numeric
+    variables. Values range from -1 to +1.
+</p>
+<pre>numeric_df = df.select_dtypes(include="number")
+corr = numeric_df.corr()
+
+plt.figure(figsize=(10, 7))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Correlation Heatmap")
+plt.show()</pre>
+
+<div class="important">
+    Correlation does not prove causation. A strong correlation does not mean that one feature
+    causes the other. Also, Pearson correlation mainly measures linear relationships.
+</div>
+
+<h2 id="advanced">07. Advanced EDA</h2>
+
+<h3>7.1 Grouping Data — groupby()</h3>
+<p><code>groupby()</code> splits data into groups, applies an operation, and combines the results.</p>
+<pre># Average salary for each department
+print(df.groupby("department")["salary"].mean())
+
+# Multiple statistics
+summary = df.groupby("department")["salary"].agg(
+    ["count", "mean", "median", "min", "max"]
+)
+print(summary)</pre>
+
+<h3>7.2 Compare Features with hue</h3>
+<p>The <code>hue</code> parameter adds a third categorical variable using different colors.</p>
+<pre>plt.figure(figsize=(8, 5))
+sns.scatterplot(
+    data=df,
+    x="age",
+    y="salary",
+    hue="department"
+)
+
+plt.title("Age and Salary by Department")
+plt.show()</pre>
+
+<h3>7.3 Pairplot — Relationships Across Several Features</h3>
+<p><code>pairplot()</code> creates pairwise plots for selected numeric features. Use it with a small
+number of columns because it can become slow and crowded on large datasets.</p>
+<pre>selected = df[["age", "salary", "experience", "department"]]
+
+sns.pairplot(
+    selected,
+    hue="department",
+    diag_kind="hist"
+)
+plt.show()</pre>
+
+<h3>7.4 Skewness — Distribution Asymmetry</h3>
+<p>Skewness describes whether a distribution is asymmetric.</p>
+<pre># Calculate skewness for numeric columns
+print(df.select_dtypes(include="number").skew())</pre>
+<table>
+    <tr><th>Skewness</th><th>General interpretation</th></tr>
+    <tr><td>Near 0</td><td>Approximately symmetric distribution.</td></tr>
+    <tr><td>Positive</td><td>Right-skewed; longer tail on the right.</td></tr>
+    <tr><td>Negative</td><td>Left-skewed; longer tail on the left.</td></tr>
+</table>
+
+<h3>7.5 Feature Relationships with a Target</h3>
+<p>
+    Before modeling, inspect how features behave across target classes or target values.
+    For a classification target, compare feature distributions by class.
+</p>
+<pre># Example: numeric feature distribution for each target class
+sns.boxplot(data=df, x="target", y="age")
+plt.title("Age by Target Class")
+plt.show()
+
+# Class distribution
+print(df["target"].value_counts(normalize=True))</pre>
+
+<h3>7.6 Create a New Feature — Feature Engineering</h3>
+<p>Feature engineering means creating useful features from existing data.</p>
+<pre># Example: create an age group
+df["age_group"] = pd.cut(
+    df["age"],
+    bins=[0, 18, 35, 60, np.inf],
+    labels=["Child", "Young Adult", "Adult", "Senior"]
+)
+
+print(df[["age", "age_group"]].head())</pre>
+
+<div class="important">
+    <strong>Machine Learning note:</strong> For predictive modeling, learn preprocessing rules
+    (such as imputation and scaling) from the training set only, then apply them to validation
+    and test sets. This prevents data leakage.
+</div>
+
+<h2 id="checklist">08. Final Checklist</h2>
+<table>
+    <tr><th>Task</th><th>Useful commands</th></tr>
+    <tr><td>Load data</td><td><code>read_csv()</code>, <code>read_excel()</code></td></tr>
+    <tr><td>Preview data</td><td><code>head()</code>, <code>tail()</code></td></tr>
+    <tr><td>Inspect structure</td><td><code>shape</code>, <code>columns</code>, <code>info()</code></td></tr>
+    <tr><td>Summary statistics</td><td><code>describe()</code></td></tr>
+    <tr><td>Inspect categories</td><td><code>unique()</code>, <code>nunique()</code>, <code>value_counts()</code></td></tr>
+    <tr><td>Missing and duplicate values</td><td><code>isnull()</code>, <code>duplicated()</code></td></tr>
+    <tr><td>Clean data</td><td><code>fillna()</code>, <code>dropna()</code>, <code>drop_duplicates()</code>, <code>astype()</code></td></tr>
+    <tr><td>Explore relationships</td><td><code>groupby()</code>, <code>corr()</code>, <code>scatterplot()</code></td></tr>
+    <tr><td>Visualize data</td><td><code>histplot()</code>, <code>boxplot()</code>, <code>countplot()</code>, <code>heatmap()</code></td></tr>
+</table>
+
+<div class="exercise">
+    <strong>Practice Task:</strong>
+    Load a dataset and perform the complete EDA workflow. Write down at least five findings:
+    one about dataset structure, one about missing values, one about distributions,
+    one about feature relationships, and one about data quality.
+</div>
+
+<div class="important">
+    <strong>Remember:</strong> EDA helps you understand the dataset and make informed decisions.
+    It does not guarantee model accuracy, but it makes the next Machine Learning steps more reliable.
+</div>
+<script src="app.js"></script>
+</body>
+</html>

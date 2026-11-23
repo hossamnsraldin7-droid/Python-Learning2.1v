@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="menu.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python Learning</title>
+<style>
+body{font-family:Arial,sans-serif;line-height:1.6;color:#333;margin:40px;background:#f9f9f9}
+h2{color:#2563eb;margin-top:34px;border-bottom:2px solid #e5e7eb;padding-bottom:6px}
+h3{color:#0d9488;margin-top:24px}
+table{width:100%;border-collapse:collapse;margin:20px 0;background:#fff;box-shadow:0 2px 4px #0001}
+th,td{border:1px solid #cbd5e1;padding:11px;text-align:right;vertical-align:top}
+th{background:#f1f5f9;color:#1e3a8a}tr:nth-child(even){background:#f8fafc}
+pre{background:#1e293b;color:#f8fafc;padding:16px;border-radius:8px;overflow-x:auto;font-family: Consolas, "Courier New",monospace;text-align:left;direction:ltr;unicode-bidi:embed;white-space:pre;tab-size:4 ; line-height: 2.2}
+code{font-family:Consolas,"Courier New",monospace;direction:ltr;unicode-bidi:embed}
+.important,.exercise,.error-box,.nav-box,.concept-box{padding:15px 18px;margin:20px 0;border-radius:7px}
+.important{background:#ffedd5;border-left:5px solid #f97316}
+.exercise{background:#f0fdf4;border-left:5px solid #22c55e}
+.error-box{background:#fef2f2;border-left:5px solid #ef4444}
+.nav-box{background:#eff6ff;border:1px solid #bfdbfe}.nav-box ul{margin-bottom:0}
+.nav-box a{color:#2563eb;text-decoration:none;font-weight:bold}.nav-box a:hover{text-decoration:underline}
+.concept-box{background:#fff;border:1px solid #dbeafe;border-left:5px solid #0d9488}
+</style>
+</head>
+<body>
+   <header> 
+        <h1>Object-Oriented Programming</h1>
+        <button id="menuBtn" >|||</button>
+        <div id="sidebar">
+            <p class="hhh">Python Learning</p>
+            <a href="index.html" target="_self">Python basics</a>
+            <a href="eda.html" target="_self">EDA</a>
+            <a href="knn.html" target="_self">KNN Algorithm</a>
+            <a href="d_t.html" target="_self">D_Tree Algorithm</a>
+            <a href="linear_regression.html" target="_self">linear_R Algorithm</a>
+            <a href="logistic_regression.html" target="_self">logistic_R Algorithm</a>
+
+        </div>
+        <div ID="overlay"></div>
+    </header>
+
+
+<div class="nav-box"><h2 style="margin-top:0">📑 Contents</h2><ul>
+<li><a href="#intro">01. OOP Concept</a></li><li><a href="#fundamentals">02. The Fundamentals</a></li>
+<li><a href="#pillars">03. The Four Pillars of OOP</a></li><li><a href="#advanced">04. Advanced Python OOP</a></li>
+<li><a href="#design">05. Design & Best Practices</a></li><li><a href="#summary">06. Summary & Practice</a></li>
+</ul></div>
+
+<h2 id="intro">01. What is OOP</h2>
+<p><strong>Object-Oriented Programming (OOP)</strong> is a programming paradigm that organizes code around <strong>objects</strong>. An object combines data (attributes) and behavior (methods) in one unit.</p>
+<p>Python is an object-oriented language. Values such as integers, strings, lists, and functions are objects. Each object has a type, identity, and value.</p>
+<div class="concept-box"><strong>The core idea:</strong><br>A <strong>Class</strong> defines structure and behavior. An <strong>Object</strong> is a concrete instance created from that class.</div>
+<h3>Why use OOP?</h3><ul><li><strong>Organization:</strong> Keep related data and behavior together.</li><li><strong>Reusability:</strong> Reuse code through classes and inheritance.</li><li><strong>Maintainability:</strong> Change components with less impact on others.</li><li><strong>Scalability:</strong> Model larger systems as cooperating objects.</li></ul>
+
+<h2 id="fundamentals">02. The Fundamentals</h2>
+<h3>2.1 Class & Object</h3>
+<p>A <strong>Class</strong> is a blueprint. An <strong>Object</strong> is an instance created from that blueprint.</p>
+<pre>class Car:
+    pass
+
+car1 = Car()
+car2 = Car()
+
+print(type(car1))
+print(car1 is car2)  # False: different objects</pre>
+<p>Both objects belong to the same class, but they have separate identities and states.</p>
+
+<h3>2.2 Attributes & Methods</h3>
+<p><strong>Attributes</strong> store data. <strong>Methods</strong> define behavior and are functions defined inside a class.</p>
+<pre>class Car:
+    def start(self):
+        print("Engine started")
+
+car = Car()
+car.brand = "Toyota"       # Instance attribute
+car.start()                # Method call
+print(car.brand)</pre>
+<div class="important">In normal class design, attributes are usually initialized in <code>__init__()</code> rather than added dynamically after object creation.</div>
+
+<h3>2.3 The Constructor — __init__()</h3>
+<p><code>__init__()</code> is an initializer method. Python calls it automatically after an instance has been created, so you can set its initial state.</p>
+<pre>class Car:
+    def __init__(self, brand, year):
+        self.brand = brand
+        self.year = year
+
+car1 = Car("Toyota", 2022)
+car2 = Car("BMW", 2024)
+
+print(car1.brand)  # Toyota
+print(car2.year)   # 2024</pre>
+<div class="important"><code>__init__()</code> does not create the object itself. Object creation is handled by <code>__new__()</code>; <code>__init__()</code> initializes the new instance.</div>
+
+<h3>2.4 The self Keyword</h3>
+<p><code>self</code> refers to the current instance. It lets a method access or modify that object's attributes and call its other methods.</p>
+<pre>class Student:
+    def __init__(self, name, grade):
+        self.name = name
+        self.grade = grade
+
+    def introduce(self):
+        print(f"My name is {self.name}")
+        print(f"My grade is {self.grade}")
+
+student1 = Student("Ali", 90)
+student2 = Student("Sara", 95)
+
+student1.introduce()
+student2.introduce()</pre>
+<p>When calling <code>student1.introduce()</code>, Python passes <code>student1</code> as the first argument automatically. <code>self</code> is a naming convention, not a reserved keyword.</p>
+
+<h3>2.5 Instance Attributes vs Class Attributes</h3>
+<p>Instance attributes belong to one object. Class attributes are defined on the class and are shared unless shadowed by an instance attribute.</p>
+<pre>class Employee:
+    company = "Tech Company"       # Class attribute
+
+    def __init__(self, name):
+        self.name = name           # Instance attribute
+
+emp1 = Employee("Omar")
+emp2 = Employee("Mona")
+
+print(emp1.company)
+print(emp2.company)
+emp1.name = "Ahmed"  # Changes emp1 only</pre>
+
+<h2 id="pillars">03. The Four Pillars of OOP</h2>
+<p>The four pillars are Encapsulation, Inheritance, Polymorphism, and Abstraction.</p>
+
+<h3>3.1 Encapsulation</h3>
+<p><strong>Encapsulation</strong> means grouping data with the methods that manage it, and controlling how the object's internal state is accessed or changed.</p>
+<table><tr><th>Style</th><th>Example</th><th>Meaning in Python</th></tr>
+<tr><td>Public</td><td><code>self.name</code></td><td>Normal attribute, accessible from anywhere.</td></tr>
+<tr><td>Protected convention</td><td><code>self._balance</code></td><td>Single underscore signals internal use by convention.</td></tr>
+<tr><td>Name-mangled</td><td><code>self.__balance</code></td><td>Double leading underscores trigger name mangling.</td></tr></table>
+<div class="important">Python does not enforce strict private access. A single underscore is a convention; double underscore performs name mangling, not absolute security.</div>
+<h3>Example 1 — Protect State with Methods</h3>
+<pre>class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.__balance = balance
+
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Amount must be positive")
+        self.__balance += amount
+
+    def get_balance(self):
+        return self.__balance
+
+account = BankAccount("Ali", 1000)
+account.deposit(500)
+print(account.get_balance())  # 1500</pre>
+<p>The balance is changed through a method that validates the amount, rather than arbitrary updates through the intended public interface.</p>
+
+<h3>Example 2 — Getters and Setters</h3>
+<pre>class Product:
+    def __init__(self, price):
+        self.__price = price
+
+    def get_price(self):
+        return self.__price
+
+    def set_price(self, value):
+        if value < 0:
+            raise ValueError("Price cannot be negative")
+        self.__price = value
+
+item = Product(100)
+print(item.get_price())
+item.set_price(150)
+print(item.get_price())</pre>
+
+<h3>Example 3 — Pythonic Encapsulation with @property</h3>
+<p><code>@property</code> gives attribute-style access while keeping validation logic inside the class.</p>
+<pre>class Product:
+    def __init__(self, price):
+        self.price = price
+
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        if value < 0:
+            raise ValueError("Price cannot be negative")
+        self.__price = value
+
+item = Product(100)
+print(item.price)   # Getter
+item.price = 250    # Setter
+print(item.price)</pre>
+<div class="important">Use <code>@property</code> when an attribute needs controlled access but should remain natural to read and assign. Use ordinary methods for actions representing behavior.</div>
+
+<h3>3.2 Inheritance</h3>
+<p><strong>Inheritance</strong> allows a child class to reuse and extend attributes or methods from a parent class. It can reduce duplication and support the DRY principle (Don't Repeat Yourself).</p>
+<pre>class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def eat(self):
+        print(f"{self.name} is eating")
+
+
+class Dog(Animal):
+    def bark(self):
+        print(f"{self.name} says Woof!")
+
+
+dog = Dog("Max")
+dog.eat()   # Inherited method
+dog.bark()  # Dog's own method</pre>
+
+<h3>Method Overriding</h3>
+<p>A child class can provide its own implementation of an inherited method. This is <strong>Method Overriding</strong>.</p>
+<pre>class Animal:
+    def speak(self):
+        print("Some generic sound")
+
+class Dog(Animal):
+    def speak(self):
+        print("Woof!")
+
+dog = Dog()
+dog.speak()  # Woof!</pre>
+
+<h3>Using super()</h3>
+<p><code>super()</code> gives access to the next implementation in the Method Resolution Order (MRO). It is commonly used to extend a parent's initialization or behavior.</p>
+<pre>class Person:
+    def __init__(self, name):
+        self.name = name
+
+class Student(Person):
+    def __init__(self, name, student_id):
+        super().__init__(name)
+        self.student_id = student_id
+
+student = Student("Mona", 2025001)
+print(student.name)
+print(student.student_id)</pre>
+
+<h3>Types of Inheritance</h3>
+<table><tr><th>Type</th><th>Description</th></tr>
+<tr><td>Single</td><td>One child inherits from one parent.</td></tr>
+<tr><td>Multiple</td><td>One child inherits from multiple parents.</td></tr>
+<tr><td>Multilevel</td><td>A class inherits from a class that already inherits from another class.</td></tr>
+<tr><td>Hierarchical</td><td>Multiple child classes inherit from the same parent.</td></tr>
+<tr><td>Hybrid</td><td>A combination of inheritance patterns.</td></tr></table>
+<h3>Multiple Inheritance Example</h3>
+<pre>class Camera:
+    def take_photo(self):
+        print("Photo captured")
+
+class Phone:
+    def make_call(self):
+        print("Calling...")
+
+class SmartPhone(Camera, Phone):
+    pass
+
+device = SmartPhone()
+device.take_photo()
+device.make_call()</pre>
+<div class="important">Python resolves inherited methods using the <strong>Method Resolution Order (MRO)</strong>. Inspect it with <code>SmartPhone.mro()</code>. Use multiple inheritance carefully.</div>
+
+<h3>3.3 Polymorphism</h3>
+<p><strong>Polymorphism</strong> means "many forms". Different objects can respond to the same method call in different ways.</p>
+<h3>Example 1 — Same Method, Different Classes</h3>
+<pre>class Dog:
+    def speak(self):
+        return "Woof!"
+
+class Cat:
+    def speak(self):
+        return "Meow!"
+
+animals = [Dog(), Cat()]
+for animal in animals:
+    print(animal.speak())</pre>
+<p>The loop does not need to know the exact class. It only relies on each object providing a compatible <code>speak()</code> method.</p>
+<h3>Example 2 — Polymorphism through Inheritance</h3>
+<pre>class Shape:
+    def area(self):
+        raise NotImplementedError
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    def area(self):
+        return self.width * self.height
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+
+    def area(self):
+        return 3.14159 * self.radius ** 2
+
+shapes = [Rectangle(4, 5), Circle(3)]
+for shape in shapes:
+    print(shape.area())</pre>
+<div class="important">Python also supports <strong>duck typing</strong>: an object can be used based on the methods it provides, without inheriting from a specific parent class.</div>
+
+<h3>3.4 Abstraction</h3>
+<p><strong>Abstraction</strong> exposes the essential interface while hiding implementation details. Python provides the <code>abc</code> module for abstract base classes.</p>
+<pre>from abc import ABC, abstractmethod
+
+class Payment(ABC):
+    @abstractmethod
+    def pay(self, amount):
+        pass
+
+class CreditCardPayment(Payment):
+    def pay(self, amount):
+        print(f"Paid {amount} using credit card")
+
+class CashPayment(Payment):
+    def pay(self, amount):
+        print(f"Paid {amount} in cash")
+
+payment = CreditCardPayment()
+payment.pay(250)</pre>
+<p>A class with unimplemented abstract methods cannot be instantiated. A concrete subclass must implement the required abstract methods.</p>
+<div class="error-box"><strong>Common mistake:</strong> Importing <code>ABC</code> alone does not make a method abstract. Decorate the required method with <code>@abstractmethod</code>.</div>
+
+<h2 id="advanced">04. Advanced Python OOP</h2>
+<h3>4.1 Magic / Dunder Methods</h3>
+<p><strong>Dunder</strong> means "double underscore". These special methods let custom objects work with built-in operations such as <code>str()</code>, <code>len()</code>, and operators.</p>
+<table><tr><th>Method</th><th>Purpose</th></tr>
+<tr><td><code>__init__</code></td><td>Initialize a new instance.</td></tr>
+<tr><td><code>__str__</code></td><td>Human-readable representation, used by <code>str()</code> and <code>print()</code>.</td></tr>
+<tr><td><code>__repr__</code></td><td>Developer-oriented representation, used by <code>repr()</code>.</td></tr>
+<tr><td><code>__len__</code></td><td>Defines the result of <code>len(obj)</code>.</td></tr>
+<tr><td><code>__add__</code></td><td>Defines behavior for the <code>+</code> operator.</td></tr></table>
+
+<h3>Example 1 — __str__ and __repr__</h3>
+<pre>class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def __str__(self):
+        return f"{self.title} by {self.author}"
+
+    def __repr__(self):
+        return f"Book({self.title!r}, {self.author!r})"
+
+book = Book("Clean Code", "Robert C. Martin")
+print(str(book))
+print(repr(book))</pre>
+
+<h3>Example 2 — __len__</h3>
+<pre>class Team:
+    def __init__(self, members):
+        self.members = members
+
+    def __len__(self):
+        return len(self.members)
+
+team = Team(["Ali", "Mona", "Omar"])
+print(len(team))  # 3</pre>
+
+<h3>Example 3 — __add__</h3>
+<pre>class Vector:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __add__(self, other):
+        if not isinstance(other, Vector):
+            return NotImplemented
+        return Vector(self.x + other.x, self.y + other.y)
+
+    def __repr__(self):
+        return f"Vector({self.x}, {self.y})"
+
+v1 = Vector(2, 3)
+v2 = Vector(4, 5)
+print(v1 + v2)  # Vector(6, 8)</pre>
+<div class="important">Return <code>NotImplemented</code> when an operator does not support the other operand's type. Python can then try a reflected operation or raise an appropriate error.</div>
+
+<h3>4.2 Instance Methods, Class Methods & Static Methods</h3>
+<table><tr><th>Method type</th><th>First parameter</th><th>Typical use</th></tr>
+<tr><td>Instance method</td><td><code>self</code></td><td>Read or modify a particular object's state.</td></tr>
+<tr><td>Class method</td><td><code>cls</code></td><td>Work with class-level state or alternative constructors.</td></tr>
+<tr><td>Static method</td><td>None automatically</td><td>Related utility needing neither instance nor class state.</td></tr></table>
+<pre>class Employee:
+    company = "Tech Company"
+
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+    # Instance method
+    def show_info(self):
+        return f"{self.name}: {self.salary}"
+
+    # Class method
+    @classmethod
+    def change_company(cls, new_name):
+        cls.company = new_name
+
+    # Static method
+    @staticmethod
+    def is_valid_salary(salary):
+        return salary >= 0
+
+emp = Employee("Ali", 5000)
+print(emp.show_info())
+Employee.change_company("New Tech")
+print(Employee.company)
+print(Employee.is_valid_salary(5000))</pre>
+
+<h3>Alternative Constructor with @classmethod</h3>
+<pre>class User:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    @classmethod
+    def from_string(cls, data):
+        name, age = data.split(",")
+        return cls(name, int(age))
+
+user = User.from_string("Mona,21")
+print(user.name)
+print(user.age)</pre>
+
+<h3>4.3 Properties — @property</h3>
+<p>Properties allow a method to be accessed like an attribute. They are useful for validation, computed values, and maintaining a stable public interface.</p>
+<pre>class Circle:
+    def __init__(self, radius):
+        self.radius = radius
+
+    @property
+    def radius(self):
+        return self.__radius
+
+    @radius.setter
+    def radius(self, value):
+        if value <= 0:
+            raise ValueError("Radius must be positive")
+        self.__radius = value
+
+    @property
+    def area(self):
+        return 3.14159 * self.radius ** 2
+
+circle = Circle(5)
+print(circle.radius)
+print(circle.area)
+circle.radius = 7
+print(circle.area)</pre>
+<p><code>area</code> has no setter, so it is a read-only computed property.</p>
+
+<h3>4.4 Data Classes — @dataclass</h3>
+<p>The <code>dataclasses</code> module reduces boilerplate for classes mainly used to store data. <code>@dataclass</code> can generate methods such as <code>__init__</code>, <code>__repr__</code>, and <code>__eq__</code>.</p>
+<pre>from dataclasses import dataclass
+
+@dataclass
+class Student:
+    name: str
+    age: int
+    grade: float
+
+student1 = Student("Ali", 20, 3.5)
+student2 = Student("Ali", 20, 3.5)
+
+print(student1)
+print(student1 == student2)  # True</pre>
+
+<h3>Mutable Defaults with field()</h3>
+<p>Use <code>field(default_factory=...)</code> when every object needs its own mutable default value, such as a list or dictionary.</p>
+<pre>from dataclasses import dataclass, field
+
+@dataclass
+class Course:
+    name: str
+    students: list = field(default_factory=list)
+
+course1 = Course("Python")
+course2 = Course("C++")
+course1.students.append("Omar")
+
+print(course1.students)  # ['Omar']
+print(course2.students)  # []</pre>
+
+<h2 id="design">05. Design & Best Practices</h2>
+<h3>5.1 Composition over Inheritance</h3>
+<p>Inheritance represents an <strong>is-a</strong> relationship. Composition represents a <strong>has-a</strong> relationship: one object contains or uses another object. Prefer composition when objects are collaborators rather than specialized versions of the same concept.</p>
+<pre>class Engine:
+    def start(self):
+        print("Engine started")
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # Car has an Engine
+
+    def start(self):
+        self.engine.start()
+
+car = Car()
+car.start()</pre>
+
+<h3>5.2 Single Responsibility Principle (SRP)</h3>
+<p>A class should have one clear responsibility and one main reason to change. Avoid classes that handle unrelated tasks.</p>
+<pre>class Invoice:
+    def __init__(self, total):
+        self.total = total
+
+class InvoicePrinter:
+    def print_invoice(self, invoice):
+        print(f"Invoice total: {invoice.total}")
+
+invoice = Invoice(500)
+printer = InvoicePrinter()
+printer.print_invoice(invoice)</pre>
+
+<h3>5.3 Keep Interfaces Small</h3>
+<p>Expose only the operations that users of a class need. Avoid large classes with many unrelated methods.</p>
+
+<h3>5.4 Clear Names and Type Hints</h3>
+<pre>class ShoppingCart:
+    def __init__(self) -> None:
+        self.items: list[str] = []
+
+    def add_item(self, item: str) -> None:
+        self.items.append(item)
+
+    def item_count(self) -> int:
+        return len(self.items)</pre>
+
+<h3>5.5 Avoid Unnecessary Inheritance</h3>
+<ul><li>Do not create a parent class only to share one tiny piece of code.</li><li>Use inheritance when the child truly represents a specialized form of the parent.</li><li>Use composition when a class needs another object's functionality.</li><li>Keep methods focused and avoid hidden side effects.</li></ul>
+
+<h3>5.6 Quick Design Guide</h3>
+<table><tr><th>Question</th><th>Possible design choice</th></tr>
+<tr><td>Do several objects share a common contract?</td><td>Consider an abstract base class or a protocol.</td></tr>
+<tr><td>Is one object a specialized type of another?</td><td>Consider inheritance.</td></tr>
+<tr><td>Does one object use another as a component?</td><td>Consider composition.</td></tr>
+<tr><td>Does an attribute need validation?</td><td>Consider <code>@property</code> or an explicit method.</td></tr>
+<tr><td>Is the class mainly a data container?</td><td>Consider <code>@dataclass</code>.</td></tr></table>
+
+<h2 id="summary">06. Quick Summary & Practice</h2>
+<table><tr><th>Concept</th><th>Main idea</th></tr>
+<tr><td>Class</td><td>A blueprint for creating objects.</td></tr><tr><td>Object</td><td>An instance of a class.</td></tr>
+<tr><td>Encapsulation</td><td>Manage access to an object's internal state.</td></tr><tr><td>Inheritance</td><td>Reuse and extend behavior from another class.</td></tr>
+<tr><td>Polymorphism</td><td>One interface, different implementations.</td></tr><tr><td>Abstraction</td><td>Expose essential operations and hide implementation details.</td></tr>
+<tr><td>Magic methods</td><td>Customize how objects work with Python operations.</td></tr><tr><td>Class method</td><td>Receives the class as <code>cls</code>.</td></tr>
+<tr><td>Static method</td><td>Related utility with no automatic instance or class argument.</td></tr><tr><td>Data class</td><td>Reduces boilerplate for data-focused classes.</td></tr></table>
+
+<div class="exercise"><strong>Practice Project — Library Management System</strong><ol>
+<li>Create a <code>Book</code> class with title, author, and availability attributes.</li>
+<li>Create a <code>Member</code> class with a name and borrowed-books list.</li>
+<li>Add methods to borrow and return a book.</li>
+<li>Use encapsulation to protect availability and validate operations.</li>
+<li>Create a <code>PrintedBook</code> child class that adds page count.</li>
+<li>Override a method to display each book type differently.</li>
+<li>Create an abstract <code>Notification</code> class with a <code>send()</code> method.</li>
+<li>Use a dataclass for a library transaction record.</li>
+</ol></div>
+<div class="important"><strong>Final Advice:</strong> OOP is not about memorizing syntax. Focus on which objects your program needs, what data each object owns, and which responsibilities belong to each class.</div>
+<script src="app.js"></script>
+</body>
+</html>
